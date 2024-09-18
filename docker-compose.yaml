@@ -1,7 +1,6 @@
 services:
-  indexer-db:
-    profiles: [scaling]
-    container_name: ${COMPOSE_PROJECT_NAME}-indexer-db
+  c-chain-indexer-db:
+    profiles: [fsp, ftso]
     image: "mysql"
     environment:
       MYSQL_ROOT_PASSWORD: "root"
@@ -13,48 +12,46 @@ services:
       timeout: 20s
       retries: 10
 
-  indexer:
-    profiles: [scaling]
-    container_name: ${COMPOSE_PROJECT_NAME}-indexer
+  c-chain-indexer:
+    profiles: [fsp, ftso]
     image: ghcr.io/flare-foundation/flare-system-c-chain-indexer:latest
     volumes:
-      - ./mounts/indexer/config.toml:/app/config.toml
+      - ./mounts/c-chain-indexer/config.toml:/app/config.toml
     restart: unless-stopped
     depends_on:
-      indexer-db:
+      c-chain-indexer-db:
         condition: service_healthy
 
-  data-provider:
-    profiles: [scaling]
-    container_name: ${COMPOSE_PROJECT_NAME}-data-provider
-    image: ghcr.io/flare-foundation/ftso-scaling:latest
-    env_file:
-      - ./mounts/scaling/.env
-    command: "node dist/apps/ftso-data-provider/apps/ftso-data-provider/src/main.js"
-    stop_grace_period: 135s # Voting round 90s + reveal deadline 45s
-    depends_on:
-      - indexer
-
-  client:
-    profiles: [scaling]
-    container_name: ${COMPOSE_PROJECT_NAME}-client
+  system-client:
+    profiles: [fsp, system-client]
     image: ghcr.io/flare-foundation/flare-system-client:latest
     volumes:
-      - ./mounts/client/config.toml:/app/config.toml
+      - ./mounts/system-client/config.toml:/app/config.toml
     environment:
       SYSTEM_CLIENT_SENDER_PRIVATE_KEY: ${SIGNING_PK}
       SIGNING_POLICY_PRIVATE_KEY: ${SIGNING_PK}
       PROTOCOL_MANAGER_SUBMIT_PRIVATE_KEY: ${SUBMIT_PK}
       PROTOCOL_MANAGER_SUBMIT_SIGNATURES_PRIVATE_KEY: ${SIGNATURES_PK}
       PROTOCOL_X_API_KEY_100: "abcdef"
-    stop_grace_period: 135s # Voting round 90s + reveal deadline 45s
+    # NOTE: Voting round 90s + reveal deadline 45s
+    stop_grace_period: 135s 
     depends_on:
-      - data-provider
-      - indexer
+      - ftso-client
+      - c-chain-indexer
+
+  ftso-client:
+    profiles: [fsp, ftso]
+    image: ghcr.io/flare-foundation/ftso-scaling:latest
+    env_file:
+      - ./mounts/ftso-client/.env
+    command: "node dist/apps/ftso-data-provider/apps/ftso-data-provider/src/main.js"
+    # NOTE: Voting round 90s + reveal deadline 45s
+    stop_grace_period: 135s 
+    depends_on:
+      - c-chain-indexer
 
   fast-updates:
     profiles: [fast-updates]
-    container_name: ${COMPOSE_PROJECT_NAME}-fast-updates
     image: ghcr.io/flare-foundation/fast-updates/go-client:latest
     volumes:
       - ./mounts/fast-updates/config.toml:/app/config.toml
@@ -63,7 +60,7 @@ services:
       ACCOUNTS: ${FAST_UPDATES_ACCOUNTS}
       SORTITION_PRIVATE_KEY: ${FAST_UPDATES_SORTITION_PRIVATE_KEY}
     depends_on:
-      - indexer
+      - c-chain-indexer
 
 volumes:
   indexer_data:

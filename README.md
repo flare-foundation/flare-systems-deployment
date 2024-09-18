@@ -77,7 +77,7 @@ WARN [FixedFeed] Initializing FixedFeed, will return 0.01 for all feeds.
 
 ### How do I know it's working
 
-You will see various errors initially on `ftso-scaling` and `flare-system-client`, since the data provider will not be registered as a voter for the current reward epoch. There is a time window for voter registration on every reward epoch, and if you leave things running you should eventually see `RegisterVoter success` logged by `flare-system-client`. It should then start submitting data successfully in the *following* reward epoch.
+You will see various errors initially in `ftso-client` and `system-client` containers, since the data provider will not be registered as a voter for the current reward epoch. There is a time window for voter registration on every reward epoch, and if you leave things running you should eventually see `RegisterVoter success` logged by `system-client` container. It should then start submitting data successfully in the *following* reward epoch.
 
 Here are log samples indicating successful operation (`flare-system-client`):
 ```

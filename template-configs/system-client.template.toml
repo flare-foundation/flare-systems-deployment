@@ -1,5 +1,5 @@
 [db]
-host = "indexer-db"
+host = "c-chain-indexer-db"
 port = 3306
 database = "flare_ftso_indexer"
 username = "root"
@@ -39,7 +39,7 @@ enabled_uptime_voting = true
 
 [protocol.ftso1]
 id = 100
-api_endpoint = "http://data-provider:3100/"
+api_endpoint = "http://ftso-client:3100/"
 
 [submit1]
 start_offset = "75s"   # start fetching data and submitting txs after this offset from the start of the epoch

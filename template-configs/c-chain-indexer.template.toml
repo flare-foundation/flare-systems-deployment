@@ -88,7 +88,7 @@ contract_address = "0xc1a22A1d295e829Caf3be61bd1E11E5eEd7f0F15" # Coston: Old Fa
 topic = "undefined"
 
 [db]
-host = "indexer-db"
+host = "c-chain-indexer-db"
 port = 3306
 database = "flare_ftso_indexer"
 username = "root"

@@ -33,9 +33,9 @@ main() {
     echo ""
 
     mount_dirs=(
-        "mounts/client/"
-        "mounts/indexer/"
-        "mounts/scaling/"
+        "mounts/system-client/"
+        "mounts/c-chain-indexer/"
+        "mounts/ftso-client/"
         "mounts/fast-updates/"
     )
 
@@ -80,20 +80,20 @@ main() {
 
     # write configs
 
-    # indexer
-    mkdir -p "mounts/indexer/"
-    CONFIG_FILE="mounts/indexer/config.toml"
-    envsubst < "template-configs/indexer.template.toml" > "$CONFIG_FILE"
+    # c chain indexer
+    mkdir -p "mounts/c-chain-indexer/"
+    CONFIG_FILE="mounts/c-chain-indexer/config.toml"
+    envsubst < "template-configs/c-chain-indexer.template.toml" > "$CONFIG_FILE"
 
-    # client
-    mkdir -p "mounts/client"
-    CONFIG_FILE="mounts/client/config.toml"
-    envsubst < "template-configs/client.template.toml" > "$CONFIG_FILE"
+    # system client
+    mkdir -p "mounts/system-client"
+    CONFIG_FILE="mounts/system-client/config.toml"
+    envsubst < "template-configs/system-client.template.toml" > "$CONFIG_FILE"
 
-    # scaling
-    mkdir -p "mounts/scaling"
-    CONFIG_FILE="mounts/scaling/.env"
-    envsubst < "template-configs/scaling.env" > "$CONFIG_FILE"
+    # ftso client
+    mkdir -p "mounts/ftso-client"
+    CONFIG_FILE="mounts/ftso-client/.env"
+    envsubst < "template-configs/ftso-client.template.env" > "$CONFIG_FILE"
     
     # fast updates
     mkdir -p "mounts/fast-updates"
