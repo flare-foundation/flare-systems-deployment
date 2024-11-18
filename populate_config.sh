@@ -36,6 +36,7 @@ main() {
         "mounts/system-client/"
         "mounts/c-chain-indexer/"
         "mounts/ftso-client/"
+        "mounts/fdc-client/"
         "mounts/fast-updates/"
     )
 
@@ -94,6 +95,11 @@ main() {
     mkdir -p "mounts/ftso-client"
     CONFIG_FILE="mounts/ftso-client/.env"
     envsubst < "template-configs/ftso-client.template.env" > "$CONFIG_FILE"
+    
+    # fdc client
+    mkdir -p "mounts/fdc-client"
+    CONFIG_FILE="mounts/fdc-client/userConfig.toml"
+    envsubst < "template-configs/fdc-client.template.env" > "$CONFIG_FILE"
     
     # fast updates
     mkdir -p "mounts/fast-updates"

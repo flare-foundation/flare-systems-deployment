@@ -1,6 +1,6 @@
 services:
   c-chain-indexer-db:
-    profiles: [fsp, ftso]
+    profiles: [fsp, ftso, fdc]
     image: "mysql"
     environment:
       MYSQL_ROOT_PASSWORD: "root"
@@ -13,7 +13,7 @@ services:
       retries: 10
 
   c-chain-indexer:
-    profiles: [fsp, ftso]
+    profiles: [fsp, ftso, fdc]
     image: ghcr.io/flare-foundation/flare-system-c-chain-indexer:latest
     volumes:
       - ./mounts/c-chain-indexer/config.toml:/app/config.toml
@@ -33,11 +33,13 @@ services:
       PROTOCOL_MANAGER_SUBMIT_PRIVATE_KEY: ${SUBMIT_PK}
       PROTOCOL_MANAGER_SUBMIT_SIGNATURES_PRIVATE_KEY: ${SIGNATURES_PK}
       PROTOCOL_X_API_KEY_100: "abcdef"
+      PROTOCOL_X_API_KEY_200: "abcdef"
     # NOTE: Voting round 90s + reveal deadline 45s
     stop_grace_period: 135s 
     depends_on:
-      - ftso-client
       - c-chain-indexer
+      - ftso-client
+      - fdc-client
 
   ftso-client:
     profiles: [fsp, ftso]
@@ -49,6 +51,14 @@ services:
     stop_grace_period: 135s 
     depends_on:
       - c-chain-indexer
+
+  fdc-client:
+    profiles: [fsp, fdc]
+    image: ghcr.io/flare-foundation/fdc-client:latest
+    depends_on:
+      - c-chain-indexer
+    # NOTE: Voting round 90s + reveal deadline 45s
+    stop_grace_period: 135s 
 
   fast-updates:
     profiles: [fast-updates]
