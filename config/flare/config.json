@@ -20,7 +20,7 @@
             "nodeIds": []
         }
     ],
-    "initialFeedDecimalsList": [
+    "feedDecimalsList": [
         {"feedId": {"category": 1, "name":"BTC/USD"}, "decimals": 2},
         {"feedId": {"category": 1, "name":"ETH/USD"}, "decimals": 3},
         {"feedId": {"category": 3, "name":"XAU/USD"}, "decimals": 3},
@@ -32,13 +32,20 @@
         {"feedId": {"category": 1, "name":"BCH/USD"}, "decimals": 4},
         {"feedId": {"category": 1, "name":"XMR/USD"}, "decimals": 4},
         {"feedId": {"category": 1, "name":"SOL/USD"}, "decimals": 4},
-        {"feedId": {"category": 1, "name":"QNT/USD"}, "decimals": 4},
         {"feedId": {"category": 1, "name":"AAVE/USD"}, "decimals": 4},
-        {"feedId": {"category": 1, "name":"BTT/USD"}, "decimals": 10},
-        {"feedId": {"category": 1, "name":"SHIB/USD"}, "decimals": 10},
-        {"feedId": {"category": 1, "name":"BONK/USD"}, "decimals": 10},
-        {"feedId": {"category": 1, "name":"LUNC/USD"}, "decimals": 10},
-        {"feedId": {"category": 1, "name":"1000SATS/USD"}, "decimals": 10}
+        {"feedId": {"category": 1, "name":"XLM/USD"}, "decimals": 6},
+        {"feedId": {"category": 1, "name":"XDC/USD"}, "decimals": 6},
+        {"feedId": {"category": 1, "name":"FLR/USD"}, "decimals": 6},
+        {"feedId": {"category": 1, "name":"SGB/USD"}, "decimals": 7},
+        {"feedId": {"category": 1, "name":"NOT/USD"}, "decimals": 7},
+        {"feedId": {"category": 1, "name":"1000SATS/USD"}, "decimals": 8},
+        {"feedId": {"category": 1, "name":"FLOKI/USD"}, "decimals": 8},
+        {"feedId": {"category": 1, "name":"LUNC/USD"}, "decimals": 9},
+        {"feedId": {"category": 1, "name":"XEC/USD"}, "decimals": 9},
+        {"feedId": {"category": 1, "name":"BONK/USD"}, "decimals": 9},
+        {"feedId": {"category": 1, "name":"SHIB/USD"}, "decimals": 9},
+        {"feedId": {"category": 1, "name":"PEPE/USD"}, "decimals": 10},
+        {"feedId": {"category": 1, "name":"BTT/USD"}, "decimals": 11}
     ],
 
     "firstVotingRoundStartTs": 1658430000,
@@ -56,7 +63,7 @@
     "submitUptimeVoteMinDurationSeconds": 600,
     "submitUptimeVoteMinDurationBlocks": 300,
     "signingPolicyThresholdPPM": 500000,
-    "signingPolicyMinNumberOfVoters": 1,
+    "signingPolicyMinNumberOfVoters": 10,
     "rewardExpiryOffsetSeconds": 7776000,
     "rewardManagerId": 14,
     "maxNodeIdsPerEntity": 4,
@@ -114,13 +121,26 @@
                 {"category": 1, "name": "JUP/USD"},
                 {"category": 1, "name": "ETHFI/USD"},
                 {"category": 1, "name": "ENA/USD"},
-                {"category": 1, "name": "PYTH/USD"}
+                {"category": 1, "name": "PYTH/USD"},
+                {"category": 1, "name": "HNT/USD"},
+                {"category": 1, "name": "SUI/USD"},
+                {"category": 1, "name": "PEPE/USD"},
+                {"category": 1, "name": "QNT/USD"},
+                {"category": 1, "name": "AAVE/USD"},
+                {"category": 1, "name": "FTM/USD"},
+                {"category": 1, "name": "ONDO/USD"},
+                {"category": 1, "name": "TAO/USD"},
+                {"category": 1, "name": "FET/USD"},
+                {"category": 1, "name": "RENDER/USD"},
+                {"category": 1, "name": "NOT/USD"},
+                {"category": 1, "name": "RUNE/USD"}
             ],
             "inflationShare": 10000,
             "minRewardedTurnoutBIPS": 5000,
             "mode": 2,
             "primaryBandRewardSharePPM": 700000,
-            "secondaryBandWidthPPMs": [400, 500, 50, 50, 50, 150, 50, 100, 100, 50, 100, 100, 100, 100, 100, 100, 100, 100, 400, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            "secondaryBandWidthPPMs": [400, 500, 50, 50, 50, 150, 50, 100, 100, 50, 100, 100, 100, 100, 100, 100, 100, 100, 400,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         }
     ],
 
@@ -238,7 +258,19 @@
         {"feedId": {"category": 1, "name": "JUP/USD"}, "rewardBandValue": 5000, "inflationShare": 10000},
         {"feedId": {"category": 1, "name": "ETHFI/USD"}, "rewardBandValue": 5000, "inflationShare": 10000},
         {"feedId": {"category": 1, "name": "ENA/USD"}, "rewardBandValue": 5000, "inflationShare": 10000},
-        {"feedId": {"category": 1, "name": "PYTH/USD"}, "rewardBandValue": 5000, "inflationShare": 10000}
+        {"feedId": {"category": 1, "name": "PYTH/USD"}, "rewardBandValue": 5000, "inflationShare": 10000},
+        {"feedId": {"category": 1, "name": "HNT/USD"}, "rewardBandValue": 5000, "inflationShare": 10000},
+        {"feedId": {"category": 1, "name": "SUI/USD"}, "rewardBandValue": 5000, "inflationShare": 10000},
+        {"feedId": {"category": 1, "name": "PEPE/USD"}, "rewardBandValue": 5000, "inflationShare": 10000},
+        {"feedId": {"category": 1, "name": "QNT/USD"}, "rewardBandValue": 5000, "inflationShare": 10000},
+        {"feedId": {"category": 1, "name": "AAVE/USD"}, "rewardBandValue": 5000, "inflationShare": 10000},
+        {"feedId": {"category": 1, "name": "FTM/USD"}, "rewardBandValue": 5000, "inflationShare": 10000},
+        {"feedId": {"category": 1, "name": "ONDO/USD"}, "rewardBandValue": 5000, "inflationShare": 10000},
+        {"feedId": {"category": 1, "name": "TAO/USD"}, "rewardBandValue": 5000, "inflationShare": 10000},
+        {"feedId": {"category": 1, "name": "FET/USD"}, "rewardBandValue": 5000, "inflationShare": 10000},
+        {"feedId": {"category": 1, "name": "RENDER/USD"}, "rewardBandValue": 5000, "inflationShare": 10000},
+        {"feedId": {"category": 1, "name": "NOT/USD"}, "rewardBandValue": 5000, "inflationShare": 10000},
+        {"feedId": {"category": 1, "name": "RUNE/USD"}, "rewardBandValue": 5000, "inflationShare": 10000}
     ],
     "defaultFeeWei": "1",
     "ftsoProxies": [
@@ -267,5 +299,10 @@
     "rNatManager": "0x4A0565f8960fEB35DC0E0c2CE0FE1FfbEa12fCA3",
     "rNatFirstMonthStartTs": 1717675200,
     "rNatFundingAddress": "0x0000000000000000000000000000000000000000",
-    "rNatFundedByIncentivePool": true
+    "rNatFundedByIncentivePool": true,
+
+    "fdcProtocolId": 200,
+    "fdcRequestsOffsetSeconds": 0,
+    "fdcRequestFees": [],
+    "fdcInflationConfigurations": []
 }
