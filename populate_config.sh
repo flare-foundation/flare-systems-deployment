@@ -23,6 +23,102 @@ get_address_by_name() {
     echo $(jq -r ".[] | select(.name == \"$name\") | .address" "$DEPLOYED_CONTRACTS")
 }
 
+write_attestation_source() {
+    attestation_type=$1; shift
+    source=$1; shift
+    lut_limit=$1; shift
+
+    url_env_name="${source^^}_${attestation_type^^}_URL"
+    api_key_env_name="${source^^}_${attestation_type^^}_API_KEY"
+
+    if [[ ${!url_env_name:+x} != "x" ]]; then
+        echo "warning: $attestation_type for $source source config wasn't generated: $url_env_name env variable is not set" >&2
+        return
+    fi
+
+    url="${!url_env_name}"
+    api_key="${!url_env_name:-""}"
+
+    cat <<EOF
+
+## $source
+[types.$attestation_type.Sources.$source]
+url = "$url"
+api_key = "$api_key"
+lut_limit = "$lut_limit"
+queue = "$source"
+EOF
+}
+
+write_attestation_type() {
+    name=$1;
+
+    cat <<EOF
+
+# $name
+[types.$name]
+abi_path = "configs/abis/$name.json"
+EOF
+
+}
+
+write_attestation_queue() {
+    name=$1; shift
+cat <<EOF
+
+[queues.$name]
+size = 10
+max_dequeues_per_second = 0
+max_workers = 0
+max_attempts = 3
+time_off = 2
+EOF
+
+}
+
+write_fdc_attestation_types() {
+    config_file=$1; shift
+    (
+        # queues
+        write_attestation_queue "sgb"
+        write_attestation_queue "flr"
+        write_attestation_queue "eth"
+        write_attestation_queue "btc"
+        write_attestation_queue "doge"
+        write_attestation_queue "xrp"
+        # evm transaction
+        write_attestation_type "EVMTransaction"
+        write_attestation_source "EVMTransaction" "sgb" 18446744073709551615
+        write_attestation_source "EVMTransaction" "flr" 18446744073709551615
+        write_attestation_source "EVMTransaction" "eth" 18446744073709551615
+        # payment
+        write_attestation_type "Payment"
+        write_attestation_source "Payment" "btc" 1209600
+        write_attestation_source "Payment" "doge" 1209600
+        write_attestation_source "Payment" "xrp" 1209600
+        # balance decreasing transaction
+        write_attestation_type "BalanceDecreasingTransaction"
+        write_attestation_source "BalanceDecreasingTransaction" "btc" 1209600
+        write_attestation_source "BalanceDecreasingTransaction" "doge" 1209600
+        write_attestation_source "BalanceDecreasingTransaction" "xrp" 1209600
+        # confirmed block height exists
+        write_attestation_type "ConfirmedBlockHeightExists"
+        write_attestation_source "ConfirmedBlockHeightExists" "btc" 1209600
+        write_attestation_source "ConfirmedBlockHeightExists" "doge" 1209600
+        write_attestation_source "ConfirmedBlockHeightExists" "xrp" 1209600
+        # referenced payment nonexistence
+        write_attestation_type "ReferencedPaymentNonexistence"
+        write_attestation_source "ReferencedPaymentNonexistence" "btc" 1209600
+        write_attestation_source "ReferencedPaymentNonexistence" "doge" 1209600
+        write_attestation_source "ReferencedPaymentNonexistence" "xrp" 1209600
+        # address validity
+        write_attestation_type "AddressValidity"
+        write_attestation_source "AddressValidity" "btc" 18446744073709551615
+        write_attestation_source "AddressValidity" "doge" 18446744073709551615
+        write_attestation_source "AddressValidity" "xrp" 18446744073709551615
+    ) >>$config_file
+}
+
 main() {
 
     if [ -d "mounts" ] || [ -f "mounts" ]; then
@@ -47,7 +143,7 @@ main() {
     done
     echo ""
 
-    echo "writing configs for indexer, client, scaling and fast-updates"
+    echo "writing configs for c-chain-indexer, system-client, ftso-client, fdc-client and fast-updates"
 
     # read contract adresses
     export SUBMISSION=$(get_address_by_name "Submission")
@@ -95,11 +191,12 @@ main() {
     mkdir -p "mounts/ftso-client"
     CONFIG_FILE="mounts/ftso-client/.env"
     envsubst < "template-configs/ftso-client.template.env" > "$CONFIG_FILE"
-    
+
     # fdc client
     mkdir -p "mounts/fdc-client"
-    CONFIG_FILE="mounts/fdc-client/userConfig.toml"
-    envsubst < "template-configs/fdc-client.template.env" > "$CONFIG_FILE"
+    CONFIG_FILE="mounts/fdc-client/config.toml"
+    envsubst < "template-configs/fdc-client.template.toml" > "$CONFIG_FILE"
+    write_fdc_attestation_types $CONFIG_FILE
     
     # fast updates
     mkdir -p "mounts/fast-updates"

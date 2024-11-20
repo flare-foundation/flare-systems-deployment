@@ -55,6 +55,8 @@ services:
   fdc-client:
     profiles: [fsp, fdc]
     image: ghcr.io/flare-foundation/fdc-client:latest
+    volumes:
+      - ./mounts/fdc-client/config.toml:/configs/userConfig.toml
     depends_on:
       - c-chain-indexer
     # NOTE: Voting round 90s + reveal deadline 45s
