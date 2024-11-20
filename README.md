@@ -49,6 +49,10 @@ Populate configs for provider stack by running `./populate_config.sh`. **NOTE: Y
 
 Since docker-compose.yaml is provided you can start everything with `docker compose up -d` and stop everything with `docker compose down`. Database is persisted in a named docker volume. If you need to wipe database you need to remove the volume manually. When upstream codebase is changed new images need to be pulled with `docker compose pull`.
 
+### Fdc suite
+
+Fdc protocol requires underlying chain infrasructure. You can deploy it from [this repository](https://github.com/flare-foundation/fdc-suite-deployment).
+
 ### Feed value provider
 
 Start your own feed value provider or alternatively use example provider:
