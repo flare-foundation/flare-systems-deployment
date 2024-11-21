@@ -1,10 +1,10 @@
-# ftso-v2-provider-deployment
+# flare-systems-deployment
 
-## FTSOV2 Overview
+## FSP Overview
 
 ![Overview](Overview.png)
 
-A data provider system for FTSOv2 consists of the following components:
+A data provider system for FSP consists of the following components:
 
 1. **Flare System Client**. Responsible for all interactions with the FTSOv2 smart contracts, including data collection and submission, voter registration, and additional system tasks.
 2. **Data Provider**. Provides commit, reveal, and median result data to System Client for submission.
