@@ -37,7 +37,7 @@ write_attestation_source() {
     fi
 
     url="${!url_env_name}"
-    api_key="${!url_env_name:-""}"
+    api_key="${!api_key_env_name:-""}"
 
     cat <<EOF
 
