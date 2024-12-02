@@ -80,42 +80,42 @@ write_fdc_attestation_types() {
     config_file=$1; shift
     (
         # queues
-        write_attestation_queue "sgb"
-        write_attestation_queue "flr"
-        write_attestation_queue "eth"
-        write_attestation_queue "btc"
-        write_attestation_queue "doge"
-        write_attestation_queue "xrp"
+        write_attestation_queue "SGB"
+        write_attestation_queue "FLR"
+        write_attestation_queue "ETH"
+        write_attestation_queue "BTC"
+        write_attestation_queue "DOGE"
+        write_attestation_queue "XRP"
         # evm transaction
         write_attestation_type "EVMTransaction"
-        write_attestation_source "EVMTransaction" "sgb" 18446744073709551615
-        write_attestation_source "EVMTransaction" "flr" 18446744073709551615
-        write_attestation_source "EVMTransaction" "eth" 18446744073709551615
+        write_attestation_source "EVMTransaction" "SGB" 18446744073709551615
+        write_attestation_source "EVMTransaction" "FLR" 18446744073709551615
+        write_attestation_source "EVMTransaction" "ETH" 18446744073709551615
         # payment
         write_attestation_type "Payment"
-        write_attestation_source "Payment" "btc" 1209600
-        write_attestation_source "Payment" "doge" 1209600
-        write_attestation_source "Payment" "xrp" 1209600
+        write_attestation_source "Payment" "BTC" 1209600
+        write_attestation_source "Payment" "DOGE" 1209600
+        write_attestation_source "Payment" "XRP" 1209600
         # balance decreasing transaction
         write_attestation_type "BalanceDecreasingTransaction"
-        write_attestation_source "BalanceDecreasingTransaction" "btc" 1209600
-        write_attestation_source "BalanceDecreasingTransaction" "doge" 1209600
-        write_attestation_source "BalanceDecreasingTransaction" "xrp" 1209600
+        write_attestation_source "BalanceDecreasingTransaction" "BTC" 1209600
+        write_attestation_source "BalanceDecreasingTransaction" "DOGE" 1209600
+        write_attestation_source "BalanceDecreasingTransaction" "XRP" 1209600
         # confirmed block height exists
         write_attestation_type "ConfirmedBlockHeightExists"
-        write_attestation_source "ConfirmedBlockHeightExists" "btc" 1209600
-        write_attestation_source "ConfirmedBlockHeightExists" "doge" 1209600
-        write_attestation_source "ConfirmedBlockHeightExists" "xrp" 1209600
+        write_attestation_source "ConfirmedBlockHeightExists" "BTC" 1209600
+        write_attestation_source "ConfirmedBlockHeightExists" "DOGE" 1209600
+        write_attestation_source "ConfirmedBlockHeightExists" "XRP" 1209600
         # referenced payment nonexistence
         write_attestation_type "ReferencedPaymentNonexistence"
-        write_attestation_source "ReferencedPaymentNonexistence" "btc" 1209600
-        write_attestation_source "ReferencedPaymentNonexistence" "doge" 1209600
-        write_attestation_source "ReferencedPaymentNonexistence" "xrp" 1209600
+        write_attestation_source "ReferencedPaymentNonexistence" "BTC" 1209600
+        write_attestation_source "ReferencedPaymentNonexistence" "DOGE" 1209600
+        write_attestation_source "ReferencedPaymentNonexistence" "XRP" 1209600
         # address validity
         write_attestation_type "AddressValidity"
-        write_attestation_source "AddressValidity" "btc" 18446744073709551615
-        write_attestation_source "AddressValidity" "doge" 18446744073709551615
-        write_attestation_source "AddressValidity" "xrp" 18446744073709551615
+        write_attestation_source "AddressValidity" "BTC" 18446744073709551615
+        write_attestation_source "AddressValidity" "DOGE" 18446744073709551615
+        write_attestation_source "AddressValidity" "XRP" 18446744073709551615
     ) >>$config_file
 }
 
@@ -156,6 +156,7 @@ main() {
     export FAST_UPDATER=$(get_address_by_name "FastUpdater")
     export FAST_UPDATES_CONFIGURATION=$(get_address_by_name "FastUpdatesConfiguration")
     export FAST_UPDATE_INCENTIVE_MANAGER=$(get_address_by_name "FastUpdateIncentiveManager")
+    export FDC_HUB=$(get_address_by_name "FdcHub")
 
     # read config parameters
     export FIRST_VOTING_EPOCH_START_SEC=$(jq -r .firstVotingRoundStartTs "$CHAIN_CONFIG")

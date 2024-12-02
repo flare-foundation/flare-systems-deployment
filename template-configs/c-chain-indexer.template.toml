@@ -87,6 +87,10 @@ topic = "undefined"
 contract_address = "0xc1a22A1d295e829Caf3be61bd1E11E5eEd7f0F15" # Coston: Old FastUpdateIncentiveManager
 topic = "undefined"
 
+[[indexer.collect_logs]]
+contract_address = "$FDC_HUB" # FdcHub
+topic = "undefined"
+
 [db]
 host = "c-chain-indexer-db"
 port = 3306
