@@ -41,6 +41,10 @@ enabled_uptime_voting = true
 id = 100
 api_endpoint = "http://ftso-client:3100/"
 
+[protocol.fdc1]
+id = 200
+api_endpoint = "http://fdc-client:8080/fsp"
+
 [submit1]
 start_offset = "75s"   # start fetching data and submitting txs after this offset from the start of the epoch
 tx_submit_retries = 1  # number of retries for submitting txs
