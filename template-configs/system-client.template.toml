@@ -51,27 +51,35 @@ tx_submit_retries = 1  # number of retries for submitting txs
 tx_submit_timeout = "10s"
 
 [submit2]
-start_offset = "5s"
+start_offset = "20s"
 tx_submit_retries = 2
 tx_submit_timeout = "10s"
 
 [submit_signatures]
-start_offset = "50s"
+start_offset = "45s"
+deadline = "60s"
 tx_submit_retries = 1
-tx_submit_timeout = "10s"
-data_fetch_retries = 1  # number of retries for fetching data from the API, timeout is 1 second
-max_rounds = 3          # max number of rounds to fetch data and submit signatures
+data_fetch_retries = 1
+data_fetch_timeout = "2s"
+cycle_duration = "2s"
+max_cycles = 3
 
 [finalizer]
 starting_reward_epoch = 0
 grace_period_end_offset = "65s"
 
 [gas_submit]
-gas_price_multiplier = 5
-gas_price_fixed = 0
-gas_limit = 2500000
+tx_type=2
+max_priority_fee_per_gas = 20000000000
 
 [gas_register]
 gas_price_multiplier = 2.5
-gas_price_fixed = 0 
+tx_type=0
+gas_price_fixed = 0
+gas_limit = 0
+
+[gas_relay]
+gas_price_multiplier = 2.5
+gas_price_fixed = 0
+tx_type=0
 gas_limit = 0
