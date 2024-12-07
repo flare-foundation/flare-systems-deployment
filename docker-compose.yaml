@@ -1,5 +1,6 @@
 services:
   c-chain-indexer-db:
+    restart: unless-stopped
     profiles: [fsp, ftso, fdc]
     image: "mysql"
     environment:
@@ -13,16 +14,17 @@ services:
       retries: 10
 
   c-chain-indexer:
+    restart: unless-stopped
     profiles: [fsp, ftso, fdc]
     image: ghcr.io/flare-foundation/flare-system-c-chain-indexer:main
     volumes:
       - ./mounts/c-chain-indexer/config.toml:/app/config.toml
-    restart: unless-stopped
     depends_on:
       c-chain-indexer-db:
         condition: service_healthy
 
   system-client:
+    restart: unless-stopped
     profiles: [fsp, system-client]
     image: ghcr.io/flare-foundation/flare-system-client:main
     volumes:
@@ -42,6 +44,7 @@ services:
       - fdc-client
 
   ftso-client:
+    restart: unless-stopped
     profiles: [fsp, ftso]
     image: ghcr.io/flare-foundation/ftso-scaling:main
     env_file:
@@ -53,6 +56,7 @@ services:
       - c-chain-indexer
 
   fdc-client:
+    restart: unless-stopped
     profiles: [fsp, fdc]
     image: ghcr.io/flare-foundation/fdc-client:main
     volumes:
@@ -63,6 +67,7 @@ services:
     stop_grace_period: 135s 
 
   fast-updates:
+    restart: unless-stopped
     profiles: [fast-updates]
     image: ghcr.io/flare-foundation/fast-updates/go-client:main
     volumes:
