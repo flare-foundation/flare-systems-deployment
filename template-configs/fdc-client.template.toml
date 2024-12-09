@@ -15,7 +15,7 @@ log_queries = false  # Log db queries (for debugging)
 # Addr optionally specifies the FSP client address for the server to listen on, in the form "host:port". If empty, ":http" (port 80) is used. The service names are defined in RFC 6335 and assigned by IANA. See net.Dial for details of the address format.
 addr = ":8080"
 api_key_name = "X-API-KEY"
-api_keys = ["abcdef"]
+api_keys = ["${PROTOCOL_X_API_KEY_200}"]
 title = "FDC protocol data provider API"
 fsp_sub_router_title = "FDC protocol data provider for FSP client"
 fsp_sub_router_path = "/fsp"
