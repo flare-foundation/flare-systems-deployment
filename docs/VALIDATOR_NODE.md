@@ -24,7 +24,7 @@ IDENTITY_ADDRESS=youridentityaddresswithout0xprefix
 cat $PATH_TO_CRT | \
   tail -n +2 | \
   head -n -1 | \
-  base64 -d | \ 
+  base64 -d | \
   openssl dgst -sha256 -binary | \
   openssl rmd160 -provider legacy -binary | \
   xxd -p | \
