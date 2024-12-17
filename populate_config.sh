@@ -67,11 +67,11 @@ write_attestation_queue() {
 cat <<EOF
 
 [queues.$name]
-size = 10
-max_dequeues_per_second = 0
-max_workers = 0
+size = 1000
+max_dequeues_per_second = 100
+max_workers = 10
 max_attempts = 3
-time_off = 2
+time_off = "2s"
 EOF
 
 }

@@ -16,7 +16,7 @@ services:
   c-chain-indexer:
     restart: unless-stopped
     profiles: [fsp, ftso, fdc]
-    image: ghcr.io/flare-foundation/flare-system-c-chain-indexer:main
+    image: ghcr.io/flare-foundation/flare-system-c-chain-indexer:v1.0.0
     volumes:
       - ./mounts/c-chain-indexer/config.toml:/app/config.toml
     depends_on:
@@ -26,7 +26,7 @@ services:
   system-client:
     restart: unless-stopped
     profiles: [fsp, system-client]
-    image: ghcr.io/flare-foundation/flare-system-client:main
+    image: ghcr.io/flare-foundation/flare-system-client:v1.0.0
     volumes:
       - ./mounts/system-client/config.toml:/app/config.toml
     environment:
@@ -40,13 +40,11 @@ services:
     stop_grace_period: 135s 
     depends_on:
       - c-chain-indexer
-      - ftso-client
-      - fdc-client
 
   ftso-client:
     restart: unless-stopped
     profiles: [fsp, ftso]
-    image: ghcr.io/flare-foundation/ftso-scaling:main
+    image: ghcr.io/flare-foundation/ftso-scaling:v1.0.0
     env_file:
       - ./mounts/ftso-client/.env
     command: "node dist/apps/ftso-data-provider/apps/ftso-data-provider/src/main.js"
@@ -58,7 +56,7 @@ services:
   fdc-client:
     restart: unless-stopped
     profiles: [fsp, fdc]
-    image: ghcr.io/flare-foundation/fdc-client:main
+    image: ghcr.io/flare-foundation/fdc-client:v1.0.0
     volumes:
       - ./mounts/fdc-client/config.toml:/app/configs/userConfig.toml
     depends_on:
@@ -69,7 +67,7 @@ services:
   fast-updates:
     restart: unless-stopped
     profiles: [fast-updates]
-    image: ghcr.io/flare-foundation/fast-updates/go-client:main
+    image: ghcr.io/flare-foundation/fast-updates/go-client:v1.0.0
     volumes:
       - ./mounts/fast-updates/config.toml:/app/config.toml
     environment:
