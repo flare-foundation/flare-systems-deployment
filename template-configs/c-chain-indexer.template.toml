@@ -39,6 +39,12 @@ func_sig = "b59589d1"
 status = true
 collect_events = true
 
+[[indexer.collect_transactions]]
+contract_address = "0xea077600E3065F4FAd7161a6D0977741f2618eec" # Flare: Old Relay
+func_sig = "b59589d1"
+status = true
+collect_events = true
+
 [[indexer.collect_logs]]
 contract_address = "$FLARE_SYSTEMS_MANAGER" # FlareSystemsManager
 topic = "undefined"
@@ -65,6 +71,10 @@ topic = "undefined"
 
 [[indexer.collect_logs]]
 contract_address = "0xbA35e39D01A3f5710d1e43FC61dbb738B68641c4" # Songbird: Old Relay
+topic = "undefined"
+
+[[indexer.collect_logs]]
+contract_address = "0xea077600E3065F4FAd7161a6D0977741f2618eec" # Flare: Old Relay
 topic = "undefined"
 
 [[indexer.collect_logs]]
