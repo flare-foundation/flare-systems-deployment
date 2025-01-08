@@ -28,18 +28,6 @@ status = true
 collect_events = true
 
 [[indexer.collect_transactions]]
-contract_address = "0x0D462d2Fec11554D64F52D7c5A5C269d748037aD" # Songbird: New Relay Pre Patch
-func_sig = "b59589d1"
-status = true
-collect_events = true
-
-[[indexer.collect_transactions]]
-contract_address = "0xbA35e39D01A3f5710d1e43FC61dbb738B68641c4" # Songbird: Old Relay
-func_sig = "b59589d1"
-status = true
-collect_events = true
-
-[[indexer.collect_transactions]]
 contract_address = "0xea077600E3065F4FAd7161a6D0977741f2618eec" # Flare: Old Relay
 func_sig = "b59589d1"
 status = true
@@ -54,23 +42,11 @@ contract_address = "$VOTER_REGISTRY" # VoterRegistry
 topic = "undefined"
 
 [[indexer.collect_logs]]
-contract_address = "0x16EdaECC2D3713C3A94CCd1FFCd2589cfb7Ee9e0" # Songbird: Old VoterRegistry
-topic = "undefined"
-
-[[indexer.collect_logs]]
 contract_address = "$FLARE_SYSTEMS_CALCULATOR" # FlareSystemsCalculator
 topic = "undefined"
 
 [[indexer.collect_logs]]
 contract_address = "$RELAY" # Relay
-topic = "undefined"
-
-[[indexer.collect_logs]]
-contract_address = "0x0D462d2Fec11554D64F52D7c5A5C269d748037aD" # Songbird: New Relay Pre Patch
-topic = "undefined"
-
-[[indexer.collect_logs]]
-contract_address = "0xbA35e39D01A3f5710d1e43FC61dbb738B68641c4" # Songbird: Old Relay
 topic = "undefined"
 
 [[indexer.collect_logs]]
@@ -86,15 +62,7 @@ contract_address = "$FAST_UPDATER" # FastUpdater
 topic = "undefined"
 
 [[indexer.collect_logs]]
-contract_address = "0x70e8870ef234EcD665F96Da4c669dc12c1e1c116" # Songbird: Old FastUpdater
-topic = "undefined"
-
-[[indexer.collect_logs]]
 contract_address = "$FAST_UPDATE_INCENTIVE_MANAGER" # FastUpdateIncentiveManager
-topic = "undefined"
-
-[[indexer.collect_logs]]
-contract_address = "0xc1a22A1d295e829Caf3be61bd1E11E5eEd7f0F15" # Coston: Old FastUpdateIncentiveManager
 topic = "undefined"
 
 [[indexer.collect_logs]]
