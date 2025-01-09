@@ -1,5 +1,19 @@
 # Validator node registration values
 
+## Note on certificate self-generation
+Default mechanism for generating the private key and the certificate are built into the validator node, which generates them during the first run and stores them to:
+```bash
+~/.avalanchego/staking/staker.key
+~/.avalanchego/staking/staker.crt
+```
+
+However, it is possible to generate your own certificates and private keys using openssl command line. But note that the EntityManager smart contract for the node id registration does not support full X509 v3 certificate specification and definitely does not support older versions (other than v3). If you generate your own certificate, please verify first, that the registration on the EntityManager smart contract works, prior to using the certificate on the node, and of course prior to initiating any stakes.
+
+The Flare team has tested the following method for generation that works.
+```bash
+openssl req -x509 -newkey rsa:4096 -keyout staker.key -out staker.crt -days 36500 -nodes -subj '/CN=localhost' -set_serial 0
+```
+
 ## Setup
 You will need to generate three values to register the node with the system:
 - 20-byte node id bytes in hex
