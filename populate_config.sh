@@ -150,6 +150,7 @@ main() {
     export RELAY=$(get_address_by_name "Relay")
     export FLARE_SYSTEMS_MANAGER=$(get_address_by_name "FlareSystemsManager")
     export VOTER_REGISTRY=$(get_address_by_name "VoterRegistry")
+    export VOTER_PRE_REGISTRY=$(get_address_by_name "VoterPreRegistry")
     export FLARE_SYSTEMS_CALCULATOR=$(get_address_by_name "FlareSystemsCalculator")
     export FTSO_REWARD_OFFERS_MANAGER=$(get_address_by_name "FtsoRewardOffersManager")
     export REWARD_MANAGER=$(get_address_by_name "RewardManager")

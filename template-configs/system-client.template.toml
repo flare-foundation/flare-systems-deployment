@@ -26,6 +26,7 @@ eth_rpc_url = "${NODE_RPC_URL}"  # Ethereum RPC URL
 submission = "$SUBMISSION"
 systems_manager = "$FLARE_SYSTEMS_MANAGER"
 voter_registry = "$VOTER_REGISTRY"
+voter_preregistry = "$VOTER_PRE_REGISTRY"
 relay = "$RELAY"
 
 [identity]
@@ -33,6 +34,7 @@ address = "$IDENTITY" # identity account not private key
 
 [clients]
 enabled_registration = true       # enable/disable registration - send RegisterVoter and SignNewSigningPolicy txs
+enabled_pre_registration = true
 enabled_protocol_voting = true
 enabled_finalizer = true
 enabled_uptime_voting = true
