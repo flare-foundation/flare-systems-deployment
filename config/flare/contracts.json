@@ -52,7 +52,7 @@
   {
     "name": "Relay",
     "contractName": "Relay.sol",
-    "address": "0xea077600E3065F4FAd7161a6D0977741f2618eec"
+    "address": "0x57a4c3676d08Aa5d15410b5A6A80fBcEF72f3F45"
   },
   {
     "name": "WNatDelegationFee",
@@ -92,7 +92,7 @@
   {
     "name": "PollingFtso",
     "contractName": "PollingFtso.sol",
-    "address": "0xbB907038933d0711e9018C9DC31121C146F2A5a0"
+    "address": "0x84e6790c97B48195161f899d3C509711e267B391"
   },
   {
     "name": "ValidatorRewardOffersManager",
@@ -233,5 +233,30 @@
     "name": "VoterWhitelister",
     "contractName": "VoterWhitelisterProxy.sol",
     "address": "0x29D476f267d28891595c546adaaf5b85E8F0BfBe"
+  },
+  {
+    "name": "FdcHub",
+    "contractName": "FdcHub.sol",
+    "address": "0xc25c749DC27Efb1864Cb3DADa8845B7687eB2d44"
+  },
+  {
+    "name": "FdcInflationConfigurations",
+    "contractName": "FdcInflationConfigurations.sol",
+    "address": "0x7F17B5FcbEEEcD9Af1Fc48cDec29F5bE724F6ab2"
+  },
+  {
+    "name": "FdcRequestFeeConfigurations",
+    "contractName": "FdcRequestFeeConfigurations.sol",
+    "address": "0x259852Ae6d5085bDc0650D3887825f7b76F0c4fe"
+  },
+  {
+    "name": "FdcVerification",
+    "contractName": "FdcVerification.sol",
+    "address": "0x9394c7A36b3Da8de1b4F27cdD0a554dA4Fa7132d"
+  },
+  {
+    "name": "VoterPreRegistry",
+    "contractName": "VoterPreRegistry.sol",
+    "address": "0xeFDBf6F31Aa46c62414Aee82aF43036d16885b48"
   }
 ]
