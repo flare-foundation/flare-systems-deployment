@@ -56,7 +56,7 @@ services:
   fdc-client:
     restart: unless-stopped
     profiles: [fsp, fdc]
-    image: ghcr.io/flare-foundation/fdc-client:v1.0.1
+    image: ghcr.io/flare-foundation/fdc-client:v1.0.2
     volumes:
       - ./mounts/fdc-client/config.toml:/app/configs/userConfig.toml
     depends_on:
