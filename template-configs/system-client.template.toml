@@ -45,6 +45,7 @@ api_endpoint = "http://ftso-client:3100/"
 
 [protocol.fdc1]
 id = 200
+type = 1
 api_endpoint = "http://fdc-client:8080/fsp"
 
 [submit1]
