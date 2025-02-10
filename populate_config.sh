@@ -190,11 +190,22 @@ main() {
     envsubst < "template-configs/system-client.template.toml" > "$CONFIG_FILE"
 
     # ftso client
+    if [[ -n "${ADDITIONAL_PROTOCOL_X_API_KEY_100:-}" ]]; then
+        export ADDITIONAL_PROTOCOL_X_API_KEY_100=",${ADDITIONAL_PROTOCOL_X_API_KEY_100}"
+    else
+        export ADDITIONAL_PROTOCOL_X_API_KEY_100=""
+    fi
     mkdir -p "mounts/ftso-client"
     CONFIG_FILE="mounts/ftso-client/.env"
     envsubst < "template-configs/ftso-client.template.env" > "$CONFIG_FILE"
 
     # fdc client
+    if [[ -n "${ADDITIONAL_PROTOCOL_X_API_KEY_200:-}" ]]; then
+        export ADDITIONAL_PROTOCOL_X_API_KEY_200=",${ADDITIONAL_PROTOCOL_X_API_KEY_200}"
+    else
+        export ADDITIONAL_PROTOCOL_X_API_KEY_200=""
+    fi
+    export FDC_KEYS=$(jq -Rc 'split(",")' <<< "$PROTOCOL_X_API_KEY_200$ADDITIONAL_PROTOCOL_X_API_KEY_200")
     mkdir -p "mounts/fdc-client"
     CONFIG_FILE="mounts/fdc-client/config.toml"
     envsubst < "template-configs/fdc-client.template.toml" > "$CONFIG_FILE"
