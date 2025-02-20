@@ -21,3 +21,4 @@ console = true
 [chain]
 node_url = "${NODE_RPC_URL}"
 chain_id = ${CHAIN_ID}
+api_key = "${NODE_API_KEY}"
