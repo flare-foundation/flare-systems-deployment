@@ -74,6 +74,7 @@ services:
       SIGNING_PRIVATE_KEY: ${SIGNING_PK}
       ACCOUNTS: ${FAST_UPDATES_ACCOUNTS}
       SORTITION_PRIVATE_KEY: ${FAST_UPDATES_SORTITION_PRIVATE_KEY}
+      API_KEY: ${NODE_API_KEY}
     depends_on:
       - c-chain-indexer
 
