@@ -41,6 +41,7 @@ enabled_uptime_voting = true
 
 [protocol.ftso1]
 id = 100
+type = 1
 api_endpoint = "http://ftso-client:3100/"
 
 [protocol.fdc1]
