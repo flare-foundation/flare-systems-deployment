@@ -26,7 +26,7 @@ services:
   system-client:
     restart: unless-stopped
     profiles: [fsp, system-client]
-    image: ghcr.io/flare-foundation/flare-system-client:v1.0.3
+    image: ghcr.io/flare-foundation/flare-system-client:v1.0.4
     volumes:
       - ./mounts/system-client/config.toml:/app/config.toml
     environment:
@@ -36,8 +36,8 @@ services:
       PROTOCOL_MANAGER_SUBMIT_SIGNATURES_PRIVATE_KEY: ${SIGNATURES_PK}
       PROTOCOL_X_API_KEY_100: ${PROTOCOL_X_API_KEY_100}
       PROTOCOL_X_API_KEY_200: ${PROTOCOL_X_API_KEY_200}
-    # NOTE: Voting round 90s + reveal deadline 45s
-    stop_grace_period: 135s 
+    # NOTE: Voting round 90s + reveal deadline 45s + signatures grace 10s
+    stop_grace_period: 145s 
     depends_on:
       - c-chain-indexer
 
@@ -48,21 +48,21 @@ services:
     env_file:
       - ./mounts/ftso-client/.env
     command: "node dist/apps/ftso-data-provider/apps/ftso-data-provider/src/main.js"
-    # NOTE: Voting round 90s + reveal deadline 45s
-    stop_grace_period: 135s 
+    # NOTE: Voting round 90s + reveal deadline 45s + signatures grace 10s
+    stop_grace_period: 145s 
     depends_on:
       - c-chain-indexer
 
   fdc-client:
     restart: unless-stopped
     profiles: [fsp, fdc]
-    image: ghcr.io/flare-foundation/fdc-client:v1.0.4
+    image: ghcr.io/flare-foundation/fdc-client:v1.0.5
     volumes:
       - ./mounts/fdc-client/config.toml:/app/configs/userConfig.toml
     depends_on:
       - c-chain-indexer
-    # NOTE: Voting round 90s + reveal deadline 45s
-    stop_grace_period: 135s 
+    # NOTE: Voting round 90s + reveal deadline 45s + signatures grace 10s
+    stop_grace_period: 145s 
 
   fast-updates:
     restart: unless-stopped
