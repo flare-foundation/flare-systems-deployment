@@ -90,7 +90,7 @@ write_fdc_attestation_types() {
         write_attestation_type "EVMTransaction"
         write_attestation_source "EVMTransaction" "SGB" 18446744073709551615
         write_attestation_source "EVMTransaction" "FLR" 18446744073709551615
-        write_attestation_source "EVMTransaction" "ETH" 18446744073709551615
+        write_attestation_source "EVMTransaction" "ETH" 26400000
         # payment
         write_attestation_type "Payment"
         write_attestation_source "Payment" "BTC" 1209600
