@@ -61,7 +61,7 @@ tx_submit_timeout = "10s"
 
 [submit_signatures]
 start_offset = "45s"
-deadline = "53s"
+deadline = "58s"
 tx_submit_retries = 1
 data_fetch_retries = 1
 data_fetch_timeout = "2s"
