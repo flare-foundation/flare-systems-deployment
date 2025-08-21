@@ -12,12 +12,12 @@
   {
     "name": "VoterRegistry",
     "contractName": "VoterRegistry.sol",
-    "address": "0xE2c06DF29d175Aa0EcfcD10134eB96f8C94448A3"
+    "address": "0xB4B93a3A3ADa93a574E6efeb5f295bf882934cB6"
   },
   {
     "name": "FlareSystemsCalculator",
     "contractName": "FlareSystemsCalculator.sol",
-    "address": "0x43CBAB9C953F54533aadAf7ffCD13c30ec05Edc9"
+    "address": "0x3787dCBD770202F856ED9204c19d6f9022Ff3BF2"
   },
   {
     "name": "FlareSystemsManager",
@@ -52,7 +52,7 @@
   {
     "name": "FtsoFeedDecimals",
     "contractName": "FtsoFeedDecimals.sol",
-    "address": "0x7Ec85276c1b9d53b9ca46A6f307FB8C68f6E7921"
+    "address": "0xC24bca265667CD2ABC412554FD39722cbaf78a4f"
   },
   {
     "name": "FtsoFeedPublisher",
@@ -108,11 +108,6 @@
     "name": "PollingFoundation",
     "contractName": "PollingFoundation.sol",
     "address": "0x2E6E089da48214C955aD1f8f88ac19EBE1ca5eFC"
-  },
-  {
-    "name": "PollingFtso",
-    "contractName": "PollingFtso.sol",
-    "address": "0xAB53139CcEb08b2b2C030F80FC036d1063d9e606"
   },
   {
     "name": "FeeCalculator",
@@ -221,8 +216,8 @@
   },
   {
     "name": "FtsoV2",
-    "contractName": "FtsoV2.sol",
-    "address": "0x5BBCc7810D72Cc1720cC97aD144926E556bE1E93"
+    "contractName": "FtsoV2Proxy.sol",
+    "address": "0x787C2AbB211dbC5F9B239288701a3dd5ae3Af1A2"
   },
   {
     "name": "PriceSubmitter",
@@ -237,11 +232,16 @@
   {
     "name": "VoterPreRegistry",
     "contractName": "VoterPreRegistry.sol",
-    "address": "0xD9e8Ee56CB5A06f2070A2793bf76C5dFb3fc3D52"
+    "address": "0xF660984B8597e31437cA4b7dEa0A41677982563b"
   },
   {
     "name": "PollingManagementGroup",
     "contractName": "PollingManagementGroup.sol",
     "address": "0x4CBEE91ed327e41d1AfcDF7AA99d2696c8D56849"
+  },
+  {
+    "name": "FtsoV2Implementation",
+    "contractName": "FtsoV2.sol",
+    "address": "0x05cd506C97f067aA219BfA7240EF2316Cc6cCadD"
   }
 ]
