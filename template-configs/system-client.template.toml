@@ -74,11 +74,11 @@ grace_period_end_offset = "65s"
 
 [gas_submit]
 tx_type=2
-max_priority_fee_per_gas = 20000000000
+max_priority_fee_per_gas = 100000000000
 
 [gas_relay]
 tx_type=2
-max_priority_fee_per_gas = 20000000000
+max_priority_fee_per_gas = 100000000000
 
 [gas_register]
 gas_price_multiplier = 2.5
