@@ -1,7 +1,14 @@
 # Registration tasks
-If you do have a safe environment to work with you can register your entity addresses with the [`register-entities`](https://github.com/flare-foundation/flare-smart-contracts-v2/blob/main/deployment/tasks/register-entities.ts) script and your sortition public key with the [`register-public-keys`](https://github.com/flare-foundation/flare-smart-contracts-v2/blob/main/deployment/tasks/register-public-keys.ts) script.
+
+If you do have a safe environment to work with you can register your entity
+addresses with the
+[`register-entities`](https://github.com/flare-foundation/flare-smart-contracts-v2/blob/main/deployment/tasks/register-entities.ts)
+script and your sortition public key with the
+[`register-public-keys`](https://github.com/flare-foundation/flare-smart-contracts-v2/blob/main/deployment/tasks/register-public-keys.ts)
+script.
 
 Fill out and store below snippet to a file named `accounts.json`.
+
 ```json
 [
   {
