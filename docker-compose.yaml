@@ -2,7 +2,7 @@ services:
   c-chain-indexer-db:
     restart: unless-stopped
     profiles: [fsp, ftso, fdc]
-    image: "mysql"
+    image: "mysql:9.5.0"
     environment:
       MYSQL_ROOT_PASSWORD: "root"
     volumes:
