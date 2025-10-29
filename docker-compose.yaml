@@ -67,7 +67,7 @@ services:
   fast-updates:
     restart: unless-stopped
     profiles: [fast-updates]
-    image: ghcr.io/flare-foundation/fast-updates/go-client:v1.0.0
+    image: ghcr.io/flare-foundation/fast-updates/go-client:v1.0.1
     volumes:
       - ./mounts/fast-updates/config.toml:/app/config.toml
     environment:
