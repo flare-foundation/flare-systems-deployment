@@ -44,7 +44,7 @@ services:
   ftso-client:
     restart: unless-stopped
     profiles: [fsp, ftso]
-    image: ghcr.io/flare-foundation/ftso-scaling:v1.0.2
+    image: ghcr.io/flare-foundation/ftso-scaling:v1.0.4
     env_file:
       - ./mounts/ftso-client/.env
     command: "node dist/apps/ftso-data-provider/apps/ftso-data-provider/src/main.js"
