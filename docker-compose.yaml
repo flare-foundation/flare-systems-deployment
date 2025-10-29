@@ -1,3 +1,6 @@
+volumes:
+  indexer_data:
+
 services:
   c-chain-indexer-db:
     restart: unless-stopped
@@ -82,6 +85,3 @@ services:
       API_KEY: ${NODE_API_KEY}
     depends_on:
       - c-chain-indexer
-
-volumes:
-  indexer_data:
