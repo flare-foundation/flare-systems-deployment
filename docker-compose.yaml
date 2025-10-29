@@ -26,7 +26,7 @@ services:
   system-client:
     restart: unless-stopped
     profiles: [fsp, system-client]
-    image: ghcr.io/flare-foundation/flare-system-client:v1.0.4
+    image: ghcr.io/flare-foundation/flare-system-client:v1.0.5
     volumes:
       - ./mounts/system-client/config.toml:/app/config.toml
     environment:
