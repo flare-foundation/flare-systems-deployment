@@ -16,7 +16,12 @@ services:
   c-chain-indexer:
     restart: unless-stopped
     profiles: [fsp, ftso, fdc]
-    image: ghcr.io/flare-foundation/flare-system-c-chain-indexer:v1.0.0
+    image: ghcr.io/flare-foundation/flare-system-c-chain-indexer:v1.1.1
+    environment:
+      NODE_API_KEY: ${NODE_API_KEY}
+      NODE_URL: ${NODE_RPC_URL}
+      DB_USERNAME: "root"
+      DB_PASSWORD: "root"
     volumes:
       - ./mounts/c-chain-indexer/config.toml:/app/config.toml
     depends_on:

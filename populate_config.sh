@@ -4,12 +4,6 @@ set -eu
 
 source <(grep -v '^#' "./.env" | sed -E 's|^(.+)=(.*)$|: ${\1=\2}; export \1|g')
 
-declare -A NODES=( 
-    ["flare"]="https://flare-api.flare.network/ext/C/rpc"
-    ["songbird"]="https://songbird-api.flare.network/ext/C/rpc"
-    ["coston"]="https://coston-api.flare.network/ext/C/rpc"
-    ["coston2"]="https://coston2-api.flare.network/ext/C/rpc"
-)
 ROOT_DIR="$(pwd)"
 CONFIG_DIR="${ROOT_DIR}/config/${NETWORK}"
 
@@ -168,14 +162,6 @@ main() {
 
     # chain id
     export CHAIN_ID=$(cat "$CHAIN_ID_FILE")
-
-    # block height
-    block_hex=$(curl -s "${NODES["$NETWORK"]}" \
-        -X POST \
-        -H "Content-Type: application/json" \
-        --data '{"method":"eth_blockNumber","params":[],"id":1,"jsonrpc":"2.0"}' \
-        | jq -r '.result')
-    export INDEXER_START_BLOCK=$((16#${block_hex/0x/} - 1000000))
 
     # write configs
 

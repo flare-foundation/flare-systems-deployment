@@ -1,6 +1,4 @@
 [indexer]
-start_index = ${INDEXER_START_BLOCK} # the number of the block that the indexer will start with
-stop_index = 0 # the number of the block that the indexer will stop with; set 0 or skip to index indefinitely
 num_parallel_req = 100 # the number of threads doing requests to the chain in parallel
 batch_size = 1000 # the number of blocks that will be pushed to a database in a batch (should be divisible by num_parallel_req)
 log_range = 10 # the size of the interval of blocks used to request logs in each request; suggested value is log_range = batch_size / num_parallel_req; note that a blockchain node might have an upper bound on this
@@ -73,8 +71,6 @@ topic = "undefined"
 host = "c-chain-indexer-db"
 port = 3306
 database = "flare_ftso_indexer"
-username = "root"
-password = "root"
 log_queries = false
 drop_table_at_start = false
 history_drop = 3628800 # 42 days
@@ -83,7 +79,3 @@ history_drop = 3628800 # 42 days
 level = "INFO"
 file = "/tmp/flare-ftso-indexer.log"
 console = true
-
-[chain]
-node_url = "${NODE_RPC_URL}"
-api_key = "${NODE_API_KEY}"
