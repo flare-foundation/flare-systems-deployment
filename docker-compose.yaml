@@ -38,10 +38,21 @@ services:
     volumes:
       - ./mounts/system-client/config.toml:/app/config.toml
     environment:
+      # db
+      DB_HOST: "c-chain-indexer-db"
+      DB_PORT: 3306
+      DB_DATABASE: "flare_ftso_indexer"
+      DB_USERNAME: "root"
+      DB_PASSWORD: "root"
+      # node
+      ETH_RPC_URL: ${NODE_RPC_URL}
+      API_KEY: ${NODE_API_KEY}
+      # private keys
       SYSTEM_CLIENT_SENDER_PRIVATE_KEY: ${SIGNING_PK}
       SIGNING_POLICY_PRIVATE_KEY: ${SIGNING_PK}
       PROTOCOL_MANAGER_SUBMIT_PRIVATE_KEY: ${SUBMIT_PK}
       PROTOCOL_MANAGER_SUBMIT_SIGNATURES_PRIVATE_KEY: ${SIGNATURES_PK}
+      # underlying client api keys
       PROTOCOL_X_API_KEY_100: ${PROTOCOL_X_API_KEY_100}
       PROTOCOL_X_API_KEY_200: ${PROTOCOL_X_API_KEY_200}
     # NOTE: Voting round 90s + reveal deadline 45s + signatures grace 10s

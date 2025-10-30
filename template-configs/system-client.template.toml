@@ -1,9 +1,4 @@
 [db]
-host = "c-chain-indexer-db"
-port = 3306
-database = "flare_ftso_indexer"
-username = "root"
-password = "root"
 log_queries = false  # Log db queries (for debugging)
 
 [logger]
@@ -16,11 +11,7 @@ console = true      # also log to console
 prometheus_address = ""  # expose client metrics to this address (empty value does not expose this endpoint)
 
 [chain]
-node_url = "${NODE_RPC_URL}"  # node client address
-api_key = "${NODE_API_KEY}"
-address_hrp = "local"  # HRP (human readable part) of chain -- used to properly encode/decode addresses
 chain_id = ${CHAIN_ID}  # chain id
-eth_rpc_url = "${NODE_RPC_URL}"  # Ethereum RPC URL
 
 [contract_addresses] # update accoriing to deployed contracts
 submission = "$SUBMISSION"
