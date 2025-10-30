@@ -64,6 +64,12 @@ services:
     restart: unless-stopped
     profiles: [fsp, ftso]
     image: ghcr.io/flare-foundation/ftso-scaling:v1.0.4
+    environment:
+      DB_HOST: "c-chain-indexer-db"
+      DB_PORT: 3306
+      DB_NAME: "flare_ftso_indexer"
+      DB_USERNAME: "root"
+      DB_PASSWORD: "root"
     env_file:
       - ./mounts/ftso-client/.env
     command: "node dist/apps/ftso-data-provider/apps/ftso-data-provider/src/main.js"
