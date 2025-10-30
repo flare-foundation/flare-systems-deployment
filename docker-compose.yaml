@@ -81,11 +81,17 @@ services:
   fdc-client:
     restart: unless-stopped
     profiles: [fsp, fdc]
-    image: ghcr.io/flare-foundation/fdc-client:v1.0.6
+    image: ghcr.io/flare-foundation/fdc-client:v1.1.0
     volumes:
       - ./mounts/fdc-client/config.toml:/app/configs/userConfig.toml
     depends_on:
       - c-chain-indexer
+    environment:
+      DB_HOST: "c-chain-indexer-db"
+      DB_PORT: 3306
+      DB_DATABASE: "flare_ftso_indexer"
+      DB_USERNAME: "root"
+      DB_PASSWORD: "root"
     # NOTE: Voting round 90s + reveal deadline 45s + signatures grace 10s
     stop_grace_period: 145s 
 
