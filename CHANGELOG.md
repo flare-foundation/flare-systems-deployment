@@ -6,7 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# \[[v1.1.0](<>) (Upcoming)\]
+# \[[v1.1.1](<>)\] - UPCOMING
+
+### Changed
+
+- bumped flare-system-c-chain-indexer image to v1.1.2
+- bumped fast-updates image to v1.0.2
+- bumped fdc-client image to v1.1.0
+
+### Added
+
+- pass secret values for flare-system-c-chain-indexer via env
+- pass secret values for system-client via env
+- pass secret values for fdc-client via env
+- pass secret values for ftso-client via env
+- pass secret values for fast-updates via env
+
+# \[[v1.1.0](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.0.8)\] - 2025-10-22
 
 ### Changed
 
