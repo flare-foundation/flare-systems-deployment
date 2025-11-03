@@ -19,5 +19,4 @@ file = "./logger/logs/fast_updates_client.log"
 console = true
 
 [chain]
-node_url = "${NODE_RPC_URL}"
 chain_id = ${CHAIN_ID}
