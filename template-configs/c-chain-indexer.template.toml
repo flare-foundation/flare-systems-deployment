@@ -68,9 +68,6 @@ contract_address = "$FDC_HUB" # FdcHub
 topic = "undefined"
 
 [db]
-host = "c-chain-indexer-db"
-port = 3306
-database = "flare_ftso_indexer"
 log_queries = false
 drop_table_at_start = false
 history_drop = 3628800 # 42 days
