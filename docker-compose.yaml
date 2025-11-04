@@ -1,11 +1,18 @@
+x-stop-grace-period: &stop-grace-period-policy
+    # NOTE: Voting round 90s + reveal deadline 45s + signatures grace 10s
+    stop_grace_period: 145s 
+
+x-restart: &restart-policy
+    restart: unless-stopped
+
 volumes:
   indexer_data:
 
 services:
   c-chain-indexer-db:
-    restart: unless-stopped
-    profiles: [fsp, ftso, fdc]
+    <<: *restart-policy
     image: "mysql:9.5.0"
+    profiles: [fsp, ftso, fdc]
     environment:
       MYSQL_ROOT_PASSWORD: "root"
     volumes:
@@ -17,9 +24,9 @@ services:
       retries: 10
 
   c-chain-indexer:
-    restart: unless-stopped
-    profiles: [fsp, ftso, fdc]
+    <<: *restart-policy
     image: ghcr.io/flare-foundation/flare-system-c-chain-indexer:v1.1.2
+    profiles: [fsp, ftso, fdc]
     environment:
       # db
       DB_HOST: "c-chain-indexer-db"
@@ -37,11 +44,9 @@ services:
         condition: service_healthy
 
   system-client:
-    restart: unless-stopped
-    profiles: [fsp, system-client]
+    <<: [*restart-policy, *stop-grace-period-policy]
     image: ghcr.io/flare-foundation/flare-system-client:v1.0.5
-    volumes:
-      - ./mounts/system-client/config.toml:/app/config.toml
+    profiles: [fsp, system-client]
     environment:
       # db
       DB_HOST: "c-chain-indexer-db"
@@ -60,15 +65,16 @@ services:
       # underlying client api keys
       PROTOCOL_X_API_KEY_100: ${PROTOCOL_X_API_KEY_100}
       PROTOCOL_X_API_KEY_200: ${PROTOCOL_X_API_KEY_200}
-    # NOTE: Voting round 90s + reveal deadline 45s + signatures grace 10s
-    stop_grace_period: 145s 
+    volumes:
+      - ./mounts/system-client/config.toml:/app/config.toml
     depends_on:
       - c-chain-indexer
 
   ftso-client:
-    restart: unless-stopped
-    profiles: [fsp, ftso]
+    <<: [*restart-policy, *stop-grace-period-policy]
     image: ghcr.io/flare-foundation/ftso-scaling:v1.0.4
+    command: "node dist/apps/ftso-data-provider/apps/ftso-data-provider/src/main.js"
+    profiles: [fsp, ftso]
     environment:
       DB_HOST: "c-chain-indexer-db"
       DB_PORT: 3306
@@ -77,40 +83,35 @@ services:
       DB_PASSWORD: "root"
     env_file:
       - ./mounts/ftso-client/.env
-    command: "node dist/apps/ftso-data-provider/apps/ftso-data-provider/src/main.js"
-    # NOTE: Voting round 90s + reveal deadline 45s + signatures grace 10s
-    stop_grace_period: 145s 
     depends_on:
       - c-chain-indexer
 
   fdc-client:
-    restart: unless-stopped
-    profiles: [fsp, fdc]
+    <<: [*restart-policy, *stop-grace-period-policy]
     image: ghcr.io/flare-foundation/fdc-client:v1.1.0
-    volumes:
-      - ./mounts/fdc-client/config.toml:/app/configs/userConfig.toml
-    depends_on:
-      - c-chain-indexer
+    profiles: [fsp, fdc]
     environment:
       DB_HOST: "c-chain-indexer-db"
       DB_PORT: 3306
       DB_DATABASE: "flare_ftso_indexer"
       DB_USERNAME: "root"
       DB_PASSWORD: "root"
-    # NOTE: Voting round 90s + reveal deadline 45s + signatures grace 10s
-    stop_grace_period: 145s 
+    volumes:
+      - ./mounts/fdc-client/config.toml:/app/configs/userConfig.toml
+    depends_on:
+      - c-chain-indexer
 
   fast-updates:
-    restart: unless-stopped
-    profiles: [fast-updates]
+    <<: *restart-policy
     image: ghcr.io/flare-foundation/fast-updates/go-client:v1.0.2
-    volumes:
-      - ./mounts/fast-updates/config.toml:/app/config.toml
+    profiles: [fast-updates]
     environment:
       SIGNING_PRIVATE_KEY: ${SIGNING_PK}
       ACCOUNTS: ${FAST_UPDATES_ACCOUNTS}
       SORTITION_PRIVATE_KEY: ${FAST_UPDATES_SORTITION_PRIVATE_KEY}
       NODE_URL: ${NODE_RPC_URL}
       API_KEY: ${NODE_API_KEY}
+    volumes:
+      - ./mounts/fast-updates/config.toml:/app/config.toml
     depends_on:
       - c-chain-indexer
