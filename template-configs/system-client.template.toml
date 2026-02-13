@@ -1,19 +1,19 @@
 [db]
-log_queries = false  # Log db queries (for debugging)
+log_queries = false
 
 [logger]
-level = "INFO"      # valid values are: DEBUG, INFO, WARN, ERROR, DPANIC, PANIC, FATAL (as in zap logger)
-file = "./logs/flare-tlc.log"  # logger file
-max_file_size = 10  # max file size before rotating, in MB
-console = true      # also log to console
+level = "INFO"
+file = "./logs/flare-tlc.log"
+max_file_size = 10
+console = true
 
 [metrics]
-prometheus_address = ""  # expose client metrics to this address (empty value does not expose this endpoint)
+prometheus_address = ""
 
 [chain]
-chain_id = ${CHAIN_ID}  # chain id
+chain_id = ${CHAIN_ID}
 
-[contract_addresses] # update accoriing to deployed contracts
+[contract_addresses]
 submission = "$SUBMISSION"
 systems_manager = "$FLARE_SYSTEMS_MANAGER"
 voter_registry = "$VOTER_REGISTRY"
@@ -21,10 +21,10 @@ voter_preregistry = "$VOTER_PRE_REGISTRY"
 relay = "$RELAY"
 
 [identity]
-address = "$IDENTITY" # identity account not private key
+address = "$IDENTITY"
 
 [clients]
-enabled_registration = true       # enable/disable registration - send RegisterVoter and SignNewSigningPolicy txs
+enabled_registration = true
 enabled_pre_registration = true
 enabled_protocol_voting = true
 enabled_finalizer = true
@@ -41,19 +41,20 @@ type = 1
 api_endpoint = "http://fdc-client:8080/fsp"
 
 [submit1]
-start_offset = "75s"   # start fetching data and submitting txs after this offset from the start of the epoch
-tx_submit_retries = 1  # number of retries for submitting txs
-tx_submit_timeout = "10s"
+start_offset = "75s"   
+tx_submit_retries = 3
+tx_submit_timeout = "4s"
 
 [submit2]
 start_offset = "20s"
-tx_submit_retries = 2
-tx_submit_timeout = "10s"
+tx_submit_retries = 3
+tx_submit_timeout = "4s"
 
 [submit_signatures]
 start_offset = "45s"
-deadline = "58s"
-tx_submit_retries = 1
+deadline = "56s"
+tx_submit_timeout = "4s"
+tx_submit_retries = 3
 data_fetch_retries = 1
 data_fetch_timeout = "2s"
 cycle_duration = "2s"
@@ -64,16 +65,18 @@ starting_reward_epoch = 0
 grace_period_end_offset = "65s"
 
 [gas_submit]
-tx_type=2
-max_priority_fee_per_gas = 100000000000
-
-[gas_relay]
-tx_type=2
-max_priority_fee_per_gas = 100000000000
+maximal_max_priority_fee = 5000_000_000_000 # 5000 Gwei
+minimal_max_priority_fee = 100_000_000_000 # 100 Gwei
 
 [gas_register]
-gas_price_multiplier = 2.5
-tx_type=0
-gas_price_fixed = 0
-gas_limit = 0
+maximal_max_priority_fee = 5000_000_000_000 # 5000 Gwei
+minimal_max_priority_fee = 100_000_000_000 # 100 Gwei
+
+[gas_relay]
+maximal_max_priority_fee = 5000_000_000_000 # 5000 Gwei
+minimal_max_priority_fee = 100_000_000_000 # 100 Gwei
+
+[gas_systems_manager]
+maximal_max_priority_fee = 5000_000_000_000 # 5000 Gwei
+minimal_max_priority_fee = 100_000_000_000 # 100 Gwei
 
