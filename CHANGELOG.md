@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# \[[v1.3.0](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.3.0)\] - UPCOMING
+
+### Changed
+
+- bumped flare-system-client image to v1.0.6
+- changed template configuration for flare-system-client
+
 # \[[v1.2.2](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.2.2)\] - 2026-01-26
 
 ### Changed
@@ -26,7 +33,7 @@ and this project adheres to
 
 ### Added
 
-- generate fdc client config for Web2Json attestation type
+- generate fdc-client config for Web2Json attestation type
 
 # \[[v1.1.1](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.1.1)\] - 2025-11-06
 
