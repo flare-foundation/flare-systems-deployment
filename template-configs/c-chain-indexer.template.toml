@@ -4,6 +4,53 @@ batch_size = 1000 # the number of blocks that will be pushed to a database in a 
 log_range = 10 # the size of the interval of blocks used to request logs in each request; suggested value is log_range = batch_size / num_parallel_req; note that a blockchain node might have an upper bound on this
 new_block_check_millis = 1000 # interval for checking for new blocks
 
+# NOTE:(@janezicmatej) 2026-02-19 relay redeploy
+
+# flare
+[[indexer.collect_transactions]]
+contract_address = "0xCcF30790A93F15e24EB909548a2C58a9b0a7FBd4"
+func_sig = "b59589d1"
+status = true
+collect_events = true
+
+[[indexer.collect_logs]]
+contract_address = "0xCcF30790A93F15e24EB909548a2C58a9b0a7FBd4"
+topic = "undefined"
+
+#songbird
+[[indexer.collect_transactions]]
+contract_address = "0xCB86E8Be709001e01897Bf59847406853da8f14b"
+func_sig = "b59589d1"
+status = true
+collect_events = true
+
+[[indexer.collect_logs]]
+contract_address = "0xCB86E8Be709001e01897Bf59847406853da8f14b"
+topic = "undefined"
+
+# coston2
+[[indexer.collect_transactions]]
+contract_address = "0xa10B672D1c62e5457b17af63d4302add6A99d7dE"
+func_sig = "b59589d1"
+status = true
+collect_events = true
+
+[[indexer.collect_logs]]
+contract_address = "0xa10B672D1c62e5457b17af63d4302add6A99d7dE"
+topic = "undefined"
+
+# coston
+[[indexer.collect_transactions]]
+contract_address = "0x051f214D346Cfd97B107BECb87E2B35D1b4287E9"
+func_sig = "b59589d1"
+status = true
+collect_events = true
+
+[[indexer.collect_logs]]
+contract_address = "0x051f214D346Cfd97B107BECb87E2B35D1b4287E9"
+topic = "undefined"
+
+# standard config
 [[indexer.collect_transactions]]
 contract_address = "$SUBMISSION" # Submission
 func_sig = "6c532fae"
@@ -25,12 +72,6 @@ func_sig = "b59589d1"
 status = true
 collect_events = true
 
-[[indexer.collect_transactions]]
-contract_address = "0xea077600E3065F4FAd7161a6D0977741f2618eec" # Flare: Old Relay
-func_sig = "b59589d1"
-status = true
-collect_events = true
-
 [[indexer.collect_logs]]
 contract_address = "$FLARE_SYSTEMS_MANAGER" # FlareSystemsManager
 topic = "undefined"
@@ -45,10 +86,6 @@ topic = "undefined"
 
 [[indexer.collect_logs]]
 contract_address = "$RELAY" # Relay
-topic = "undefined"
-
-[[indexer.collect_logs]]
-contract_address = "0xea077600E3065F4FAd7161a6D0977741f2618eec" # Flare: Old Relay
 topic = "undefined"
 
 [[indexer.collect_logs]]
