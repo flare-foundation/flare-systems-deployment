@@ -8,6 +8,10 @@ and this project adheres to
 
 # \[[v1.4.0](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.4.0)\] - upcoming
 
+### Changed
+
+- new relay contract addresses for all 4 chains
+
 ### Added
 
 - release github job
