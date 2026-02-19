@@ -88,7 +88,7 @@ services:
 
   fdc-client:
     <<: [*restart-policy, *stop-grace-period-policy]
-    image: ghcr.io/flare-foundation/fdc-client:v1.2.4
+    image: ghcr.io/flare-foundation/fdc-client:v1.2.5
     profiles: [fsp, fdc]
     environment:
       DB_HOST: "c-chain-indexer-db"
