@@ -45,7 +45,7 @@ services:
 
   system-client:
     <<: [*restart-policy, *stop-grace-period-policy]
-    image: ghcr.io/flare-foundation/flare-system-client:v1.0.8
+    image: ghcr.io/flare-foundation/flare-system-client:v1.0.9
     profiles: [fsp, system-client]
     environment:
       # db
