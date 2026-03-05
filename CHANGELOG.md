@@ -17,6 +17,11 @@ and this project adheres to
 - release github job
 - bumped flare-system-client image to v1.0.10
 - bumped fdc-client image to v1.2.6
+- bumped ftso-scaling image to v1.0.6
+
+### Removed
+
+- command argument from ftso-client service as it is now setup in the docker image
 
 # \[[v1.3.1](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.3.1)\] - 2026-02-20
 
