@@ -16,6 +16,7 @@ and this project adheres to
 
 - release github job
 - bumped flare-system-client image to v1.0.10
+- bumped fdc-client image to v1.2.6
 
 # \[[v1.3.1](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.3.1)\] - 2026-02-20
 
