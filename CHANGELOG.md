@@ -15,6 +15,7 @@ and this project adheres to
 ### Added
 
 - release github job
+- bumped flare-system-client image to v1.0.10
 
 # \[[v1.3.1](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.3.1)\] - 2026-02-20
 
