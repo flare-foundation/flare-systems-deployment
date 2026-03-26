@@ -11,6 +11,7 @@ and this project adheres to
 ### Changed
 
 - bumped flare-system-client image to v1.0.11
+- bumped ftso-scaling image to v1.0.8
 
 # \[[v1.4.1](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.4.1)\] - 2026-03-10
 
