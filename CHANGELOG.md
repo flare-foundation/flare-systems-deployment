@@ -14,6 +14,10 @@ and this project adheres to
 - bumped ftso-scaling image to v1.0.9
 - bumped fdc-client image to v1.2.9
 
+### Added
+
+- fdc-client config generation for XRPPayment and XRPPaymentNonexistence
+
 # \[[v1.4.2](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.4.2)\] - 2026-03-26
 
 ### Changed

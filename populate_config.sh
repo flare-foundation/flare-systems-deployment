@@ -114,6 +114,12 @@ write_fdc_attestation_types() {
         # web2json
         write_attestation_type "Web2Json"
         write_attestation_source "Web2Json" "Ignite" 18446744073709551615
+        # xrp payment
+        write_attestation_type "XRPPayment"
+        write_attestation_source "XRPPayment" "XRP" 1209600
+        # xrp referenced payment nonexistence
+        write_attestation_type "XRPPaymentNonexistence"
+        write_attestation_source "XRPPaymentNonexistence" "XRP" 1209600
     ) >>$config_file
 }
 
