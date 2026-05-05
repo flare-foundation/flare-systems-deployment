@@ -3,6 +3,7 @@ num_parallel_req = 100 # the number of threads doing requests to the chain in pa
 batch_size = 1000 # the number of blocks that will be pushed to a database in a batch (should be divisible by num_parallel_req)
 log_range = 10 # the size of the interval of blocks used to request logs in each request; suggested value is log_range = batch_size / num_parallel_req; note that a blockchain node might have an upper bound on this
 new_block_check_millis = 1000 # interval for checking for new blocks
+start_index = ${START_INDEX:-0} # block to start indexing from (0 = network genesis)
 
 # standard config
 [[indexer.collect_transactions]]
@@ -61,7 +62,7 @@ topic = "undefined"
 [db]
 log_queries = false
 drop_table_at_start = false
-history_drop = 3628800 # 42 days
+history_drop = ${HISTORY_DROP:-3628800} # seconds to keep (42 days = 3628800)
 
 [logger]
 level = "INFO"
