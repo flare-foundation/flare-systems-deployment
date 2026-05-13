@@ -11,6 +11,7 @@ and this project adheres to
 ### Changed
 
 - bumped flare-system-client image to v1.0.15
+- bumped fdc-client image to v1.2.10
 
 # \[[v1.5.1](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.5.1)\] - 2026-05-12
 
