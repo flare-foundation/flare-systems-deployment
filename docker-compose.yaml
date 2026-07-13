@@ -45,7 +45,7 @@ services:
 
   system-client:
     <<: [*restart-policy, *stop-grace-period-policy]
-    image: ghcr.io/flare-foundation/flare-system-client:v1.0.15@sha256:b55e1430eae3082adaef7c0d9d37ba79d91b661c99956a54080412868ca44ce2
+    image: ghcr.io/flare-foundation/flare-system-client:v1.1.0-rc.0
     profiles: [fsp, system-client]
     environment:
       # db
@@ -72,7 +72,7 @@ services:
 
   ftso-client:
     <<: [*restart-policy, *stop-grace-period-policy]
-    image: ghcr.io/flare-foundation/ftso-scaling:v1.0.9@sha256:25a8942c653d3d9cc55abc277a2e76df76601af27e9921a238ac06608f51e403
+    image: ghcr.io/flare-foundation/ftso-scaling:v1.1.0-rc.1
     profiles: [fsp, ftso]
     environment:
       DB_HOST: "c-chain-indexer-db"
@@ -87,7 +87,7 @@ services:
 
   fdc-client:
     <<: [*restart-policy, *stop-grace-period-policy]
-    image: ghcr.io/flare-foundation/fdc-client:v1.2.10@sha256:5a1eee1ff86af534c1ffb20654d9c89956f497e3f3c72c53315c2310bde0f7b8
+    image: ghcr.io/flare-foundation/fdc-client:v1.3.0-rc.0
     profiles: [fsp, fdc]
     environment:
       DB_HOST: "c-chain-indexer-db"
