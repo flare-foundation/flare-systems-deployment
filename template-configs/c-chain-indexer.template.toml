@@ -35,7 +35,23 @@ contract_address = "$VOTER_REGISTRY" # VoterRegistry
 topic = "undefined"
 
 [[indexer.collect_logs]]
+contract_address = "0x2580101692366e2f331e891180d9ffdF861Fce83" # Flare: Legacy VoterRegistry
+topic = "undefined"
+
+[[indexer.collect_logs]]
+contract_address = "0x31B9EC65C731c7D973a33Ef3FC83B653f540dC8D" # Songbird: Legacy VoterRegistry
+topic = "undefined"
+
+[[indexer.collect_logs]]
 contract_address = "$FLARE_SYSTEMS_CALCULATOR" # FlareSystemsCalculator
+topic = "undefined"
+
+[[indexer.collect_logs]]
+contract_address = "0x67c4B11c710D35a279A41cff5eb089Fe72748CF8" # Flare: Legacy FlareSystemsCalculator
+topic = "undefined"
+
+[[indexer.collect_logs]]
+contract_address = "0x126FAeEc75601dA3354c0b5Cc0b60C85fCbC3A5e" # Songbird: Legacy FlareSystemsCalculator
 topic = "undefined"
 
 [[indexer.collect_logs]]

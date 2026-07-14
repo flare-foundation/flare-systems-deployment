@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# \[[v1.5.4](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.5.4)\] - 2026-07-14
+
+### Changed
+
+- bumped flare-system-client image to v1.1.0
+- bumped ftso-scaling image to v1.1.0
+- bumped fdc-client image to v1.3.0
+- configured the new VoterRegistry, VoterPreRegistry, and FlareSystemsCalculator
+  addresses for the Flare and Songbird reward epoch 417 contract upgrades
+- retained indexing of the legacy contract addresses for historical reward epochs
+
 # \[[v1.5.3](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.5.3)\] - 2026-07-01
 
 ### Changed
