@@ -10,6 +10,7 @@ and this project adheres to
 
 ### Changed
 
+- bumped flare-system-client image to v1.1.1
 - bumped ftso-scaling image to v1.1.1
 - configured the new FlareSystemsCalculator addresses for the Coston2 and Coston
 
