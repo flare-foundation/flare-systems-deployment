@@ -72,7 +72,7 @@ services:
 
   ftso-client:
     <<: [*restart-policy, *stop-grace-period-policy]
-    image: ghcr.io/flare-foundation/ftso-scaling:v1.1.0@sha256:a5a4426b409120600864784155de0a85719f3099c04f2b3cce7f7589c43d659d
+    image: ghcr.io/flare-foundation/ftso-scaling:v1.1.1@sha256:e61dbbcf4a84853ab37805a09745c130b9012e0908a47a810e38f280dc151759
     profiles: [fsp, ftso]
     environment:
       DB_HOST: "c-chain-indexer-db"
