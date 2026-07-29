@@ -12,7 +12,7 @@ services:
   c-chain-indexer-db:
     <<: *restart-policy
     image: "mysql:9.5.0@sha256:57c892ddeb17e6c7dddf219914db017b2cf3e2797806a75424444b83622cc8ef"
-    profiles: [fsp, ftso, fdc]
+    profiles: [fsp, ftso, fdc, tee]
     environment:
       MYSQL_ROOT_PASSWORD: "root"
     volumes:
@@ -26,7 +26,7 @@ services:
   c-chain-indexer:
     <<: *restart-policy
     image: ghcr.io/flare-foundation/flare-system-c-chain-indexer:v1.1.3@sha256:262778a5ca4bb8b6a6c297ea118c3d87fdf640757b316c5cebe8f41be6466dd9
-    profiles: [fsp, ftso, fdc]
+    profiles: [fsp, ftso, fdc, tee]
     environment:
       # db
       DB_HOST: "c-chain-indexer-db"
@@ -97,6 +97,18 @@ services:
       DB_PASSWORD: "root"
     volumes:
       - ./mounts/fdc-client/config.toml:/app/configs/userConfig.toml
+    depends_on:
+      - c-chain-indexer
+
+  tee-relay-client:
+    <<: *restart-policy
+    image: ghcr.io/flare-foundation/tee-relay-client:v0.0.2@sha256:74e963259c96d77d84df1fdd31f3b2c1d120fb010cff66d02e96b748848a6810
+    profiles: [tee]
+    environment:
+      # signing policy key for providers, designated cosigning key for cosigners
+      PRIVATE_KEY: ${SIGNING_PK}
+    volumes:
+      - ./mounts/tee-relay-client/config.toml:/app/config.toml
     depends_on:
       - c-chain-indexer
 
