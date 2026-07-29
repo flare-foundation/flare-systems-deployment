@@ -30,6 +30,9 @@ A data provider system for FSP consists of the following components:
    values (prices) for a given set of feeds.
 1. **FDC Client**. Interacts with FDC suite and provides FDC protocol voting
    round data to SystemClient for submission.
+1. **TEE Relay Client**. Connector between the `FlareTeeManager` contract and
+   TEE nodes. Signs and forwards TEE instructions, and queries verifier servers
+   for FDC2 attestation responses. Optional, enabled with the `tee` profile.
 
 Reference implementations are provided for all components except **Feed Value
 Provider**, providers are encouraged to use own implementation conforming to the
