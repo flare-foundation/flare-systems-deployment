@@ -105,7 +105,6 @@ services:
     image: ghcr.io/flare-foundation/tee-relay-client:v0.0.2@sha256:74e963259c96d77d84df1fdd31f3b2c1d120fb010cff66d02e96b748848a6810
     profiles: [tee]
     environment:
-      # signing policy key for providers, designated cosigning key for cosigners
       PRIVATE_KEY: ${SIGNING_PK}
     volumes:
       - ./mounts/tee-relay-client/config.toml:/app/config.toml
