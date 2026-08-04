@@ -123,6 +123,78 @@ write_fdc_attestation_types() {
     ) >>$config_file
 }
 
+write_tee_queue() {
+    name=$1; shift
+
+    cat <<EOF
+
+[fdc.queues.$name]
+max_dequeues_per_second = 100 # zero for unlimited
+max_workers = 50              # zero for unlimited
+max_attempts = 3
+time_off = "2s"
+EOF
+
+}
+
+write_tee_verifier() {
+    name=$1; shift
+    attestation_type=$1; shift
+    source=$1; shift
+    queue=$1; shift
+
+    url_env_name="${source^^}_${attestation_type^^}_URL"
+    api_key_env_name="${source^^}_${attestation_type^^}_API_KEY"
+
+    if [[ ${!url_env_name:+x} != "x" ]]; then
+        echo "warning: $attestation_type for $source source config wasn't generated: $url_env_name env variable is not set" >&2
+        return
+    fi
+
+    url="${!url_env_name}"
+    api_key="${!api_key_env_name:-""}"
+
+    cat <<EOF
+
+# $attestation_type for $source
+[fdc.verifiers.$name]
+type = "$attestation_type"
+source = "$source"
+queue = "$queue"
+server.url = "$url"
+server.key_name = "X-API-KEY"
+server.key = "$api_key"
+EOF
+}
+
+write_tee_verifiers() {
+    config_file=$1; shift
+    (
+        # queues
+        write_tee_queue "availability"
+        write_tee_queue "pmw"
+        # verifiers
+        write_tee_verifier "availability" "TeeAvailabilityCheck" "TEE" "availability"
+        write_tee_verifier "payment" "PMWPaymentStatus" "XRP" "pmw"
+        write_tee_verifier "account" "PMWMultisigAccountConfigured" "XRP" "pmw"
+        write_tee_verifier "fee" "PMWFeeProof" "XRP" "pmw"
+    ) >>$config_file
+}
+
+# TeeInstructionsSent events consumed by tee-relay-client; appended separately because
+# FlareTeeManager is not deployed on every network and an empty contract_address would
+# make the indexer collect logs for the zero address instead
+write_tee_manager_logs() {
+    config_file=$1; shift
+
+    cat <<EOF >>$config_file
+
+[[indexer.collect_logs]]
+contract_address = "$FLARE_TEE_MANAGER" # FlareTeeManager
+topic = "undefined"
+EOF
+}
+
 main() {
 
     if [ -d "mounts" ] || [ -f "mounts" ]; then
@@ -138,6 +210,7 @@ main() {
         "mounts/ftso-client/"
         "mounts/fdc-client/"
         "mounts/fast-updates/"
+        "mounts/tee-relay-client/"
     )
 
     echo "preparing mount dirs:"
@@ -147,7 +220,7 @@ main() {
     done
     echo ""
 
-    echo "writing configs for c-chain-indexer, system-client, ftso-client, fdc-client and fast-updates"
+    echo "writing configs for c-chain-indexer, system-client, ftso-client, fdc-client, fast-updates and tee-relay-client"
 
     # read contract adresses
     export SUBMISSION=$(get_address_by_name "Submission")
@@ -162,6 +235,8 @@ main() {
     export FAST_UPDATES_CONFIGURATION=$(get_address_by_name "FastUpdatesConfiguration")
     export FAST_UPDATE_INCENTIVE_MANAGER=$(get_address_by_name "FastUpdateIncentiveManager")
     export FDC_HUB=$(get_address_by_name "FdcHub")
+    # not deployed on every network, log collection is skipped when empty
+    export FLARE_TEE_MANAGER=$(get_address_by_name "FlareTeeManager")
 
     # read config parameters
     export FIRST_VOTING_EPOCH_START_SEC=$(jq -r .firstVotingRoundStartTs "$CHAIN_CONFIG")
@@ -179,6 +254,9 @@ main() {
     mkdir -p "mounts/c-chain-indexer/"
     CONFIG_FILE="mounts/c-chain-indexer/config.toml"
     envsubst < "template-configs/c-chain-indexer.template.toml" > "$CONFIG_FILE"
+    if [[ -n "$FLARE_TEE_MANAGER" ]]; then
+        write_tee_manager_logs $CONFIG_FILE
+    fi
 
     # system client
     mkdir -p "mounts/system-client"
@@ -211,6 +289,12 @@ main() {
     mkdir -p "mounts/fast-updates"
     CONFIG_FILE="mounts/fast-updates/config.toml"
     envsubst < "template-configs/fast-updates.template.toml" > "$CONFIG_FILE"
+
+    # tee relay client
+    mkdir -p "mounts/tee-relay-client"
+    CONFIG_FILE="mounts/tee-relay-client/config.toml"
+    envsubst < "template-configs/tee-relay-client.template.toml" > "$CONFIG_FILE"
+    write_tee_verifiers $CONFIG_FILE
 }
 
 main

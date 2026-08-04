@@ -1,0 +1,35 @@
+flare_tee_manager = "$FLARE_TEE_MANAGER"
+
+# false processes all instructions, as expected for entities in the current signing policy
+is_cosigner = false
+
+chain_id = ${CHAIN_ID}
+
+[collector]
+# blocks below the indexer's last block that the initial scan starts at; the window is rescanned
+# on every restart, so it trades restart recovery against reprocessing
+start_interval = 100
+
+# C-chain indexer db
+# NOTE: tee-relay-client does not read DB_* env vars, credentials have to be set here
+[db]
+host = "c-chain-indexer-db"
+port = 3306
+database = "flare_ftso_indexer"
+username = "root"
+password = "root"
+log_queries = false
+
+[logger]
+level = "INFO"
+file = ""
+max_file_size = 10
+max_backups = 10
+max_age_days = 30
+console = true
+
+# credentials for signer
+# NOTE: the key itself is passed as PRIVATE_KEY env var, see docker-compose.yaml
+[signer]
+local = true
+private_key_variable = "PRIVATE_KEY"

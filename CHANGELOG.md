@@ -8,11 +8,18 @@ and this project adheres to
 
 # \[[UNRELEASED](<>)\] - UPCOMING
 
+### Added
+
+- added tee-relay-client image v0.0.2 under the new `tee` compose profile, with
+  config generation for the FlareTeeManager address, signer, and FDC2 verifiers
+- indexing of FlareTeeManager logs, on the networks where it is deployed
+
 ### Changed
 
 - bumped flare-system-client image to v1.1.1
 - bumped ftso-scaling image to v1.1.1
 - configured the new FlareSystemsCalculator addresses for the Coston2 and Coston
+- added the `tee` profile to c-chain-indexer and its database
 
 # \[[v1.5.4](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.5.4)\] - 2026-07-14
 
