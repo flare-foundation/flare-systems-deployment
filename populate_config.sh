@@ -2,6 +2,7 @@
 
 set -eu
 
+# shellcheck source=/dev/null
 source <(grep -v '^#' "./.env" | sed -E 's|^(.+)=(.*)$|: ${\1=\2}; export \1|g')
 
 ROOT_DIR="$(pwd)"
@@ -14,7 +15,7 @@ CHAIN_ID_FILE="${CONFIG_DIR}/chain_id.txt"
 
 get_address_by_name() {
     name="$1"
-    echo $(jq -r ".[] | select(.name == \"$name\") | .address" "$DEPLOYED_CONTRACTS")
+    jq -r ".[] | select(.name == \"$name\") | .address" "$DEPLOYED_CONTRACTS"
 }
 
 write_attestation_source() {
@@ -120,7 +121,7 @@ write_fdc_attestation_types() {
         # xrp referenced payment nonexistence
         write_attestation_type "XRPPaymentNonexistence"
         write_attestation_source "XRPPaymentNonexistence" "XRP" 1209600
-    ) >>$config_file
+    ) >>"$config_file"
 }
 
 write_tee_queue() {
@@ -178,7 +179,7 @@ write_tee_verifiers() {
         write_tee_verifier "payment" "PMWPaymentStatus" "XRP" "pmw"
         write_tee_verifier "account" "PMWMultisigAccountConfigured" "XRP" "pmw"
         write_tee_verifier "fee" "PMWFeeProof" "XRP" "pmw"
-    ) >>$config_file
+    ) >>"$config_file"
 }
 
 # TeeInstructionsSent events consumed by tee-relay-client; appended separately because
@@ -187,7 +188,7 @@ write_tee_verifiers() {
 write_tee_manager_logs() {
     config_file=$1; shift
 
-    cat <<EOF >>$config_file
+    cat <<EOF >>"$config_file"
 
 [[indexer.collect_logs]]
 contract_address = "$FLARE_TEE_MANAGER" # FlareTeeManager
@@ -223,30 +224,49 @@ main() {
     echo "writing configs for c-chain-indexer, system-client, ftso-client, fdc-client, fast-updates and tee-relay-client"
 
     # read contract adresses
-    export SUBMISSION=$(get_address_by_name "Submission")
-    export RELAY=$(get_address_by_name "Relay")
-    export FLARE_SYSTEMS_MANAGER=$(get_address_by_name "FlareSystemsManager")
-    export VOTER_REGISTRY=$(get_address_by_name "VoterRegistry")
-    export VOTER_PRE_REGISTRY=$(get_address_by_name "VoterPreRegistry")
-    export FLARE_SYSTEMS_CALCULATOR=$(get_address_by_name "FlareSystemsCalculator")
-    export FTSO_REWARD_OFFERS_MANAGER=$(get_address_by_name "FtsoRewardOffersManager")
-    export REWARD_MANAGER=$(get_address_by_name "RewardManager")
-    export FAST_UPDATER=$(get_address_by_name "FastUpdater")
-    export FAST_UPDATES_CONFIGURATION=$(get_address_by_name "FastUpdatesConfiguration")
-    export FAST_UPDATE_INCENTIVE_MANAGER=$(get_address_by_name "FastUpdateIncentiveManager")
-    export FDC_HUB=$(get_address_by_name "FdcHub")
+    SUBMISSION=$(get_address_by_name "Submission")
+    export SUBMISSION
+    RELAY=$(get_address_by_name "Relay")
+    export RELAY
+    FLARE_SYSTEMS_MANAGER=$(get_address_by_name "FlareSystemsManager")
+    export FLARE_SYSTEMS_MANAGER
+    VOTER_REGISTRY=$(get_address_by_name "VoterRegistry")
+    export VOTER_REGISTRY
+    VOTER_PRE_REGISTRY=$(get_address_by_name "VoterPreRegistry")
+    export VOTER_PRE_REGISTRY
+    FLARE_SYSTEMS_CALCULATOR=$(get_address_by_name "FlareSystemsCalculator")
+    export FLARE_SYSTEMS_CALCULATOR
+    FTSO_REWARD_OFFERS_MANAGER=$(get_address_by_name "FtsoRewardOffersManager")
+    export FTSO_REWARD_OFFERS_MANAGER
+    REWARD_MANAGER=$(get_address_by_name "RewardManager")
+    export REWARD_MANAGER
+    FAST_UPDATER=$(get_address_by_name "FastUpdater")
+    export FAST_UPDATER
+    FAST_UPDATES_CONFIGURATION=$(get_address_by_name "FastUpdatesConfiguration")
+    export FAST_UPDATES_CONFIGURATION
+    FAST_UPDATE_INCENTIVE_MANAGER=$(get_address_by_name "FastUpdateIncentiveManager")
+    export FAST_UPDATE_INCENTIVE_MANAGER
+    FDC_HUB=$(get_address_by_name "FdcHub")
+    export FDC_HUB
     # not deployed on every network, log collection is skipped when empty
-    export FLARE_TEE_MANAGER=$(get_address_by_name "FlareTeeManager")
+    FLARE_TEE_MANAGER=$(get_address_by_name "FlareTeeManager")
+    export FLARE_TEE_MANAGER
 
     # read config parameters
-    export FIRST_VOTING_EPOCH_START_SEC=$(jq -r .firstVotingRoundStartTs "$CHAIN_CONFIG")
-    export VOTING_EPOCH_DURATION_SEC=$(jq -r .votingEpochDurationSeconds "$CHAIN_CONFIG")
-    export FIRST_REWARD_EPOCH_START_VOTING_ID=$(jq -r .firstRewardEpochStartVotingRoundId "$CHAIN_CONFIG")
-    export REWARD_EPOCH_DURATION_IN_VOTING_EPOCHS=$(jq -r .rewardEpochDurationInVotingEpochs "$CHAIN_CONFIG")
-    export INITIAL_REWARD_EPOCH_ID=$(cat "$INITIAL_REWARD_EPOCH")
+    FIRST_VOTING_EPOCH_START_SEC=$(jq -r .firstVotingRoundStartTs "$CHAIN_CONFIG")
+    export FIRST_VOTING_EPOCH_START_SEC
+    VOTING_EPOCH_DURATION_SEC=$(jq -r .votingEpochDurationSeconds "$CHAIN_CONFIG")
+    export VOTING_EPOCH_DURATION_SEC
+    FIRST_REWARD_EPOCH_START_VOTING_ID=$(jq -r .firstRewardEpochStartVotingRoundId "$CHAIN_CONFIG")
+    export FIRST_REWARD_EPOCH_START_VOTING_ID
+    REWARD_EPOCH_DURATION_IN_VOTING_EPOCHS=$(jq -r .rewardEpochDurationInVotingEpochs "$CHAIN_CONFIG")
+    export REWARD_EPOCH_DURATION_IN_VOTING_EPOCHS
+    INITIAL_REWARD_EPOCH_ID=$(cat "$INITIAL_REWARD_EPOCH")
+    export INITIAL_REWARD_EPOCH_ID
 
     # chain id
-    export CHAIN_ID=$(cat "$CHAIN_ID_FILE")
+    CHAIN_ID=$(cat "$CHAIN_ID_FILE")
+    export CHAIN_ID
 
     # write configs
 
@@ -255,7 +275,7 @@ main() {
     CONFIG_FILE="mounts/c-chain-indexer/config.toml"
     envsubst < "template-configs/c-chain-indexer.template.toml" > "$CONFIG_FILE"
     if [[ -n "$FLARE_TEE_MANAGER" ]]; then
-        write_tee_manager_logs $CONFIG_FILE
+        write_tee_manager_logs "$CONFIG_FILE"
     fi
 
     # system client
@@ -279,11 +299,12 @@ main() {
     else
         export ADDITIONAL_PROTOCOL_X_API_KEY_200=""
     fi
-    export FDC_KEYS=$(jq -Rc 'split(",")' <<< "$PROTOCOL_X_API_KEY_200$ADDITIONAL_PROTOCOL_X_API_KEY_200")
+    FDC_KEYS=$(jq -Rc 'split(",")' <<< "$PROTOCOL_X_API_KEY_200$ADDITIONAL_PROTOCOL_X_API_KEY_200")
+    export FDC_KEYS
     mkdir -p "mounts/fdc-client"
     CONFIG_FILE="mounts/fdc-client/config.toml"
     envsubst < "template-configs/fdc-client.template.toml" > "$CONFIG_FILE"
-    write_fdc_attestation_types $CONFIG_FILE
+    write_fdc_attestation_types "$CONFIG_FILE"
     
     # fast updates
     mkdir -p "mounts/fast-updates"
@@ -294,7 +315,7 @@ main() {
     mkdir -p "mounts/tee-relay-client"
     CONFIG_FILE="mounts/tee-relay-client/config.toml"
     envsubst < "template-configs/tee-relay-client.template.toml" > "$CONFIG_FILE"
-    write_tee_verifiers $CONFIG_FILE
+    write_tee_verifiers "$CONFIG_FILE"
 }
 
 main
