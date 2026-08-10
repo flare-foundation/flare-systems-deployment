@@ -113,7 +113,7 @@ services:
 
   fast-updates:
     <<: *restart-policy
-    image: ghcr.io/flare-foundation/fast-updates/go-client:v1.0.2@sha256:c07cda6f26e0294647225ee00e6414d843ec4765f5d32393c2e0d2acdbdaa9f7
+    image: ghcr.io/flare-foundation/fast-updates/go-client:v1.1.0@sha256:1782ada7361afd5dac68ea21bfffca11afd38e1f121d9bb64c5d7415993841ec
     profiles: [fast-updates]
     environment:
       SIGNING_PRIVATE_KEY: ${SIGNING_PK}

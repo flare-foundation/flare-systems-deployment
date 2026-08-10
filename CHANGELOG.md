@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# \[Unreleased\]
+
+### Changed
+
+- bumped fast-updates image to v1.1.0
+- updated the fast-updates config template for EIP-1559 (type 2) submissions:
+  `gas_price_multiplier` replaced by `base_fee_multiplier`,
+  `max_priority_fee_multiplier`, `minimal_max_priority_fee`, and
+  `maximal_max_priority_fee`
+
 # \[[v1.6.0](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.6.0)\] - 2026-08-04
 
 ### Added
