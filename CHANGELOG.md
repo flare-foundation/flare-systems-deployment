@@ -15,6 +15,9 @@ and this project adheres to
   `gas_price_multiplier` replaced by `base_fee_multiplier`,
   `max_priority_fee_multiplier`, `minimal_max_priority_fee`, and
   `maximal_max_priority_fee`
+- bumped flare-system-client image to v1.1.2, and dropped `logger.file` and
+  `logger.max_file_size` from its config template: the container already logs to
+  stdout, so the file only grew inside it, unrotated by anything outside
 
 # \[[v1.6.0](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.6.0)\] - 2026-08-04
 
