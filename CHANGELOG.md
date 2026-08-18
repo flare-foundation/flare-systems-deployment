@@ -18,6 +18,8 @@ and this project adheres to
 - bumped flare-system-client image to v1.1.2, and dropped `logger.file` and
   `logger.max_file_size` from its config template: the container already logs to
   stdout, so the file only grew inside it, unrotated by anything outside
+- dropped `logger.file` from the fast-updates config template too, for the same
+  reason
 
 # \[[v1.6.0](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.6.0)\] - 2026-08-04
 

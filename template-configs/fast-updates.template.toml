@@ -20,7 +20,6 @@ maximal_max_priority_fee = 5000_000_000_000 # 5000 Gwei
 
 [logger]
 level = "INFO"
-file = "./logger/logs/fast_updates_client.log"
 console = true
 
 [chain]
