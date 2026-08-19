@@ -28,6 +28,14 @@ and this project adheres to
   each epoch.
 - the indexer database moved to a new `indexer_data_v2` volume. The old
   `indexer_data` volume is left untouched as a rollback point.
+- the services that read the indexer database — system-client, ftso-client,
+  fdc-client and tee-relay-client — now wait for the indexer's `/health` to report
+  200 before they start, via a compose healthcheck. Previously they came up
+  against an empty database and worked through their own retry and backoff paths
+  until data appeared. If you raise `indexer.history_epochs`, raise the
+  healthcheck's `start_period` to match: the first backfill then takes
+  proportionally longer, and compose will not start the dependent services once
+  it marks the indexer unhealthy.
 - `populate_config.sh` no longer appends a `FlareTeeManager` log filter to the
   indexer config. v2 collects the `TeeInstructionsSent` events tee-relay-client
   reads on every network where the contract is deployed, so the generated filter
@@ -47,8 +55,8 @@ docker compose up -d
 
 - `./populate_config.sh` is **required**: the indexer config template changed.
 - the indexer starts from an empty database and resyncs in under a minute.
-  `/health` reports 503 until it has, and the system client has no indexed data
-  to read in the meantime.
+  `/health` reports 503 until it has, and the services that read the database wait
+  for it, so expect them to start a minute or so after `docker compose up -d`.
 - do **not** run `docker compose down -v`, `docker volume prune -a` or
   `docker system prune --volumes` during the upgrade: all three delete the old
   `indexer_data` volume you are keeping in order to roll back.

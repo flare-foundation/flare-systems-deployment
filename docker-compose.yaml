@@ -42,6 +42,16 @@ services:
     depends_on:
       c-chain-indexer-db:
         condition: service_healthy
+    # /health is 503 until the startup backfill completes, 200 after; the services
+    # reading the database wait for it. start_period must cover that backfill, so
+    # raise it along with indexer.history_epochs.
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:8080/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 30m
+      start_interval: 2s
 
   system-client:
     <<: [*restart-policy, *stop-grace-period-policy]
@@ -68,7 +78,8 @@ services:
     volumes:
       - ./mounts/system-client/config.toml:/app/config.toml
     depends_on:
-      - c-chain-indexer
+      c-chain-indexer:
+        condition: service_healthy
 
   ftso-client:
     <<: [*restart-policy, *stop-grace-period-policy]
@@ -83,7 +94,8 @@ services:
     env_file:
       - ./mounts/ftso-client/.env
     depends_on:
-      - c-chain-indexer
+      c-chain-indexer:
+        condition: service_healthy
 
   fdc-client:
     <<: [*restart-policy, *stop-grace-period-policy]
@@ -98,7 +110,8 @@ services:
     volumes:
       - ./mounts/fdc-client/config.toml:/app/configs/userConfig.toml
     depends_on:
-      - c-chain-indexer
+      c-chain-indexer:
+        condition: service_healthy
 
   tee-relay-client:
     <<: *restart-policy
@@ -109,7 +122,8 @@ services:
     volumes:
       - ./mounts/tee-relay-client/config.toml:/app/config.toml
     depends_on:
-      - c-chain-indexer
+      c-chain-indexer:
+        condition: service_healthy
 
   fast-updates:
     <<: *restart-policy
@@ -123,5 +137,3 @@ services:
       API_KEY: ${NODE_API_KEY}
     volumes:
       - ./mounts/fast-updates/config.toml:/app/config.toml
-    depends_on:
-      - c-chain-indexer
