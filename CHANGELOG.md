@@ -6,6 +6,93 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# \[[v1.7.0](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.7.0)\] - 2026-08-19
+
+### Changed
+
+- **the indexer database is renamed from `flare_ftso_indexer` to `fsp_indexer`.**
+  Every service in the stack takes the name from `docker-compose.yaml`, so the
+  stack needs no changes from you — but **anything of your own that reads the
+  indexer database directly must be repointed**: backups, dashboards, reward
+  calculation, ad-hoc queries.
+- bumped c-chain-indexer image to v2.0.0 and switched it to `mode = "fsp"` with
+  `history_epochs = 0`. The indexer now only collects what the FSP stack needs
+  and resolves the contracts by name itself, so the config template no longer
+  lists any `collect_transactions` / `collect_logs` entries and no longer sets
+  `db.history_drop`, which fsp mode ignores. A fresh sync takes well under a
+  minute instead of hours: it fully indexes only the last hour or so of blocks,
+  and backfills the FSP events behind that. Retention is no longer a fixed
+  42-day window either — history drop now deletes below two reward epochs before
+  the current epoch's start, so the indexed range grows as the indexer runs and
+  settles at roughly 7 to 10 days on Flare and Songbird, sliding forward with
+  each epoch.
+- the indexer database moved to a new `indexer_data_v2` volume. The old
+  `indexer_data` volume is left untouched as a rollback point.
+- the services that read the indexer database — system-client, ftso-client,
+  fdc-client and tee-relay-client — now wait for the indexer's `/health` to report
+  200 before they start, via a compose healthcheck. Previously they came up
+  against an empty database and worked through their own retry and backoff paths
+  until data appeared. If you raise `indexer.history_epochs`, raise the
+  healthcheck's `start_period` to match: the first backfill then takes
+  proportionally longer, and compose will not start the dependent services once
+  it marks the indexer unhealthy.
+- `populate_config.sh` no longer appends a `FlareTeeManager` log filter to the
+  indexer config. v2 collects the `TeeInstructionsSent` events tee-relay-client
+  reads on every network where the contract is deployed, so the generated filter
+  only duplicated a built-in one. `FlareTeeManager` is still resolved for the
+  tee-relay-client config.
+
+### Upgrading
+
+```bash
+docker compose down
+git fetch --tags
+git checkout v1.7.0
+./populate_config.sh
+docker compose pull
+docker compose up -d
+```
+
+- `./populate_config.sh` is **required**: the indexer config template changed.
+- the indexer starts from an empty database and resyncs in under a minute.
+  `/health` reports 503 until it has, and the services that read the database wait
+  for it, so expect them to start a minute or so after `docker compose up -d`.
+- do **not** run `docker compose down -v`, `docker volume prune -a` or
+  `docker system prune --volumes` during the upgrade: all three delete the old
+  `indexer_data` volume you are keeping in order to roll back.
+- once v2 runs fine, reclaim the space with
+  `docker volume rm <project>_indexer_data`, where `<project>` is this
+  directory's name. List the volumes first with `docker volume ls`.
+
+### Rolling back
+
+```bash
+docker compose down
+git checkout v1.6.1
+./populate_config.sh
+docker compose pull
+docker compose up -d
+```
+
+- the v1 indexer picks up the old `indexer_data` volume and resumes from where
+  it stopped, then re-indexes the blocks produced while v2 was running. Allow
+  catchup time in proportion to how long v2 ran.
+
+# \[[v1.6.1](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.6.1)\] - 2026-08-19
+
+### Changed
+
+- bumped fast-updates image to v1.1.0
+- updated the fast-updates config template for EIP-1559 (type 2) submissions:
+  `gas_price_multiplier` replaced by `base_fee_multiplier`,
+  `max_priority_fee_multiplier`, `minimal_max_priority_fee`, and
+  `maximal_max_priority_fee`
+- bumped flare-system-client image to v1.1.2, and dropped `logger.file` and
+  `logger.max_file_size` from its config template: the container already logs to
+  stdout, so the file only grew inside it, unrotated by anything outside
+- dropped `logger.file` from the fast-updates config template too, for the same
+  reason
+
 # \[[v1.6.0](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.6.0)\] - 2026-08-04
 
 ### Added

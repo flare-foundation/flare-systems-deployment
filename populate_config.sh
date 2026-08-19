@@ -182,20 +182,6 @@ write_tee_verifiers() {
     ) >>"$config_file"
 }
 
-# TeeInstructionsSent events consumed by tee-relay-client; appended separately because
-# FlareTeeManager is not deployed on every network and an empty contract_address would
-# make the indexer collect logs for the zero address instead
-write_tee_manager_logs() {
-    config_file=$1; shift
-
-    cat <<EOF >>"$config_file"
-
-[[indexer.collect_logs]]
-contract_address = "$FLARE_TEE_MANAGER" # FlareTeeManager
-topic = "undefined"
-EOF
-}
-
 main() {
 
     if [ -d "mounts" ] || [ -f "mounts" ]; then
@@ -274,9 +260,6 @@ main() {
     mkdir -p "mounts/c-chain-indexer/"
     CONFIG_FILE="mounts/c-chain-indexer/config.toml"
     envsubst < "template-configs/c-chain-indexer.template.toml" > "$CONFIG_FILE"
-    if [[ -n "$FLARE_TEE_MANAGER" ]]; then
-        write_tee_manager_logs "$CONFIG_FILE"
-    fi
 
     # system client
     mkdir -p "mounts/system-client"

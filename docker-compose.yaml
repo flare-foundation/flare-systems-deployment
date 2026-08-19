@@ -6,7 +6,7 @@ x-restart: &restart-policy
     restart: unless-stopped
 
 volumes:
-  indexer_data:
+  indexer_data_v2:
 
 services:
   c-chain-indexer-db:
@@ -17,7 +17,7 @@ services:
       MYSQL_ROOT_PASSWORD: "root"
     volumes:
       - ./config/init.sql:/docker-entrypoint-initdb.d/db_init.sql
-      - indexer_data:/var/lib/mysql
+      - indexer_data_v2:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "--silent", "--host", "localhost", "-proot"]
       timeout: 20s
@@ -25,13 +25,13 @@ services:
 
   c-chain-indexer:
     <<: *restart-policy
-    image: ghcr.io/flare-foundation/flare-system-c-chain-indexer:v1.1.3@sha256:262778a5ca4bb8b6a6c297ea118c3d87fdf640757b316c5cebe8f41be6466dd9
+    image: ghcr.io/flare-foundation/flare-system-c-chain-indexer:v2.0.0@sha256:2e4e56525e4c7c19c27c32286cadf147341e209a990052a9b5b4847cf084fb50
     profiles: [fsp, ftso, fdc, tee]
     environment:
       # db
       DB_HOST: "c-chain-indexer-db"
       DB_PORT: 3306
-      DB_DATABASE: "flare_ftso_indexer"
+      DB_DATABASE: "fsp_indexer"
       DB_USERNAME: "root"
       DB_PASSWORD: "root"
       # node
@@ -42,16 +42,26 @@ services:
     depends_on:
       c-chain-indexer-db:
         condition: service_healthy
+    # /health is 503 until the startup backfill completes, 200 after; the services
+    # reading the database wait for it. start_period must cover that backfill, so
+    # raise it along with indexer.history_epochs.
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:8080/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 30m
+      start_interval: 2s
 
   system-client:
     <<: [*restart-policy, *stop-grace-period-policy]
-    image: ghcr.io/flare-foundation/flare-system-client:v1.1.1@sha256:239d91f7a3c9170cfa0c72059aaa52a947f2bdc970f8c28e2120d519d8bce7ce
+    image: ghcr.io/flare-foundation/flare-system-client:v1.1.2@sha256:c222dd372cf2b169c18e4018bad617ef4ce96d3f14c453c5e8e2334a9ab1d111
     profiles: [fsp, system-client]
     environment:
       # db
       DB_HOST: "c-chain-indexer-db"
       DB_PORT: 3306
-      DB_DATABASE: "flare_ftso_indexer"
+      DB_DATABASE: "fsp_indexer"
       DB_USERNAME: "root"
       DB_PASSWORD: "root"
       # node
@@ -68,7 +78,8 @@ services:
     volumes:
       - ./mounts/system-client/config.toml:/app/config.toml
     depends_on:
-      - c-chain-indexer
+      c-chain-indexer:
+        condition: service_healthy
 
   ftso-client:
     <<: [*restart-policy, *stop-grace-period-policy]
@@ -77,13 +88,14 @@ services:
     environment:
       DB_HOST: "c-chain-indexer-db"
       DB_PORT: 3306
-      DB_NAME: "flare_ftso_indexer"
+      DB_NAME: "fsp_indexer"
       DB_USERNAME: "root"
       DB_PASSWORD: "root"
     env_file:
       - ./mounts/ftso-client/.env
     depends_on:
-      - c-chain-indexer
+      c-chain-indexer:
+        condition: service_healthy
 
   fdc-client:
     <<: [*restart-policy, *stop-grace-period-policy]
@@ -92,13 +104,14 @@ services:
     environment:
       DB_HOST: "c-chain-indexer-db"
       DB_PORT: 3306
-      DB_DATABASE: "flare_ftso_indexer"
+      DB_DATABASE: "fsp_indexer"
       DB_USERNAME: "root"
       DB_PASSWORD: "root"
     volumes:
       - ./mounts/fdc-client/config.toml:/app/configs/userConfig.toml
     depends_on:
-      - c-chain-indexer
+      c-chain-indexer:
+        condition: service_healthy
 
   tee-relay-client:
     <<: *restart-policy
@@ -109,11 +122,12 @@ services:
     volumes:
       - ./mounts/tee-relay-client/config.toml:/app/config.toml
     depends_on:
-      - c-chain-indexer
+      c-chain-indexer:
+        condition: service_healthy
 
   fast-updates:
     <<: *restart-policy
-    image: ghcr.io/flare-foundation/fast-updates/go-client:v1.0.2@sha256:c07cda6f26e0294647225ee00e6414d843ec4765f5d32393c2e0d2acdbdaa9f7
+    image: ghcr.io/flare-foundation/fast-updates/go-client:v1.1.0@sha256:1782ada7361afd5dac68ea21bfffca11afd38e1f121d9bb64c5d7415993841ec
     profiles: [fast-updates]
     environment:
       SIGNING_PRIVATE_KEY: ${SIGNING_PK}
@@ -123,5 +137,3 @@ services:
       API_KEY: ${NODE_API_KEY}
     volumes:
       - ./mounts/fast-updates/config.toml:/app/config.toml
-    depends_on:
-      - c-chain-indexer

@@ -11,11 +11,15 @@ value_provider_url = "${FAST_UPDATES_VALUE_PROVIDER_URL}"
 [transactions]
 gas_limit = 3000000
 value = 0
-gas_price_multiplier = 2.5
+# Submissions are EIP-1559 (type 2) transactions since fast-updates v1.1.0;
+# gas_price_multiplier is no longer used. Values match the client defaults.
+base_fee_multiplier = 4
+max_priority_fee_multiplier = 2
+minimal_max_priority_fee = 100_000_000_000  # 100 Gwei
+maximal_max_priority_fee = 5000_000_000_000 # 5000 Gwei
 
 [logger]
 level = "INFO"
-file = "./logger/logs/fast_updates_client.log"
 console = true
 
 [chain]

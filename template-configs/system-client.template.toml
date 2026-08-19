@@ -3,8 +3,6 @@ log_queries = false
 
 [logger]
 level = "INFO"
-file = "./logs/flare-tlc.log"
-max_file_size = 10
 console = true
 
 [metrics]
