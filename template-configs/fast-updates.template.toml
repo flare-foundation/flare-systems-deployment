@@ -19,7 +19,7 @@ minimal_max_priority_fee = 100_000_000_000  # 100 Gwei
 maximal_max_priority_fee = 5000_000_000_000 # 5000 Gwei
 
 [logger]
-level = "INFO"
+level = "${LOG_LEVEL}"
 console = true
 
 [chain]

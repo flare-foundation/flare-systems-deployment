@@ -18,5 +18,5 @@ drop_table_at_start = false
 # db.history_drop is ignored in fsp mode: retention follows history_epochs
 
 [logger]
-level = "INFO"
+level = "${LOG_LEVEL}"
 console = true

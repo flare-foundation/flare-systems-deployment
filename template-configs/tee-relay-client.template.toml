@@ -26,7 +26,7 @@ password = "root"
 log_queries = false
 
 [logger]
-level = "INFO"
+level = "${LOG_LEVEL}"
 file = ""
 max_file_size = 10
 max_backups = 10

@@ -15,6 +15,12 @@ CHAIN_ID_FILE="${CONFIG_DIR}/chain_id.txt"
 # only present on networks whose switch to the source-chain-id-bound Relay is scheduled
 RELAY_CUTOVER="${CONFIG_DIR}/relay_cutover.json"
 
+# logging level for every client, defaults to debug when not set in .env
+# lower cased: the ftso client compares LOG_LEVEL to "debug" exactly
+LOG_LEVEL="${LOG_LEVEL:-debug}"
+LOG_LEVEL="${LOG_LEVEL,,}"
+export LOG_LEVEL
+
 get_address_by_name() {
     name="$1"
     jq -r ".[] | select(.name == \"$name\") | .address" "$DEPLOYED_CONTRACTS"
