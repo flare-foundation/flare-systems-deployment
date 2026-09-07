@@ -17,7 +17,7 @@ systems_manager = "$FLARE_SYSTEMS_MANAGER"
 voter_registry = "$VOTER_REGISTRY"
 voter_preregistry = "$VOTER_PRE_REGISTRY"
 relay = "$RELAY"
-
+${RELAY_CUTOVER_SECTION}
 [identity]
 address = "$IDENTITY"
 
