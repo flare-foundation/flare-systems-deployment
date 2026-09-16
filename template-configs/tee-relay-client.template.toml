@@ -5,6 +5,11 @@ is_cosigner = false
 
 chain_id = ${CHAIN_ID}
 
+# first reward epoch whose FDC2 responses are signed with the chain-bound digest of the
+# redeployed Relay; -1 keeps the pre-cutover digest until the network's switch is scheduled
+[relay_cutover]
+starting_reward_epoch = ${TEE_RELAY_CUTOVER_EPOCH}
+
 [collector]
 # blocks below the indexer's last block that the initial scan starts at; the window is rescanned
 # on every restart, so it trades restart recovery against reprocessing

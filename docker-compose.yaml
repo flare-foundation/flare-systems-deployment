@@ -99,7 +99,7 @@ services:
 
   fdc-client:
     <<: [*restart-policy, *stop-grace-period-policy]
-    image: ghcr.io/flare-foundation/fdc-client:v1.4.0@sha256:cea2ad47917abe60990ac884ef4a62c60955e09792af16e8dd474a1929851474
+    image: ghcr.io/flare-foundation/fdc-client:v1.4.2@sha256:b508555b1ccf6babe9d0def84e469829df97a2b353ffada3b0cc0292f67cb7d9
     profiles: [fsp, fdc]
     environment:
       DB_HOST: "c-chain-indexer-db"
@@ -115,7 +115,7 @@ services:
 
   tee-relay-client:
     <<: *restart-policy
-    image: ghcr.io/flare-foundation/tee-relay-client:v0.0.2@sha256:74e963259c96d77d84df1fdd31f3b2c1d120fb010cff66d02e96b748848a6810
+    image: ghcr.io/flare-foundation/tee-relay-client:v.0.0.3@sha256:33b043202b4cc8679ce675987daf9bd83c719cc6feb6545b85ddf303b7cdd7aa
     profiles: [tee]
     environment:
       PRIVATE_KEY: ${SIGNING_PK}

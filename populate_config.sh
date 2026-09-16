@@ -270,6 +270,17 @@ starting_reward_epoch = $(jq -r .startingRewardEpoch "$RELAY_CUTOVER")
     fi
     export RELAY_CUTOVER_SECTION
 
+    # tee-relay-client takes only the epoch: it reads no Relay contract, and it signs FDC2
+    # responses with the chain-bound digest from that reward epoch on. Its default is the
+    # opposite of the system client's — an omitted section means "already switched" — so a
+    # network without a scheduled date must say -1 to keep the pre-cutover digest.
+    if [[ -f "$RELAY_CUTOVER" ]]; then
+        TEE_RELAY_CUTOVER_EPOCH=$(jq -r .startingRewardEpoch "$RELAY_CUTOVER")
+    else
+        TEE_RELAY_CUTOVER_EPOCH=-1
+    fi
+    export TEE_RELAY_CUTOVER_EPOCH
+
     # write configs
 
     # c chain indexer
