@@ -115,7 +115,7 @@ services:
 
   tee-relay-client:
     <<: *restart-policy
-    image: ghcr.io/flare-foundation/tee-relay-client:v.0.0.3@sha256:33b043202b4cc8679ce675987daf9bd83c719cc6feb6545b85ddf303b7cdd7aa
+    image: ghcr.io/flare-foundation/tee-relay-client:v0.0.3@sha256:5688e249ca963cf7677381c7ab2e22aadafdbf80a0c61187b3b6a9057dc7497a
     profiles: [tee]
     environment:
       PRIVATE_KEY: ${SIGNING_PK}

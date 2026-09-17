@@ -6,26 +6,49 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# \[Unreleased\]
+# \[[v1.8.0](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.8.0)\] - 2026-09-17
+
+**Mandatory upgrade. Songbird providers must run this version before reward
+epoch 437, Flare providers before reward epoch 441.** From that epoch on the
+`Relay` switches to the redeployed contract.
 
 ### Added
 
-- scheduled the switch to the redeployed `Relay` on Coston2 (reward epoch 6047),
-  Songbird (reward epoch 437) and Flare (reward epoch 441) via
-  `config/<network>/relay_cutover.json`.
+- `[relay_cutover]` for the system client is generated on every network from
+  `config/<network>/relay_cutover.json`: the redeployed `Relay` address and the
+  reward epoch it takes over, 5991 on Coston, 6047 on Coston2, 437 on Songbird
+  and 441 on Flare.
 - the tee-relay-client config gains `[relay_cutover]` with the same epoch, or
   `-1` where no cutover is scheduled: the relay treats an omitted section as
   already switched.
 
 ### Changed
 
+- bumped flare-system-client to v1.2.0, ftso-scaling to v1.2.0 and
+  c-chain-indexer to v2.0.2, the versions supporting the `Relay` switch.
 - bumped fdc-client to v1.4.2, whose bundled system configs carry the same
   epochs.
-- bumped tee-relay-client to v.0.0.3. It requires FDC2 verifiers that answer
+- bumped tee-relay-client to v0.0.3. It requires FDC2 verifiers that answer
   with the `{status, responseBody, message}` envelope of go-verifier-api
   v0.1.0, whose routes also changed — re-check the verifier `*_URL` values in
   `.env`.
-- `./populate_config.sh` is required: the system-client and tee-relay-client
+
+### Upgrading
+
+If you run the `tee` profile on Songbird, first upgrade your FDC2 verifiers to
+go-verifier-api v0.1.0 and update the `*_URL` values in `.env`: tee-relay-client
+v0.0.3 fails every verification against older verifiers.
+
+```bash
+git fetch --tags
+git checkout v1.8.0
+./populate_config.sh
+docker compose pull
+docker compose down
+docker compose up -d
+```
+
+- `./populate_config.sh` is **required**: the system-client and tee-relay-client
   configs gain the `[relay_cutover]` section.
 
 # \[[v1.7.0](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.7.0)\] - 2026-08-19
