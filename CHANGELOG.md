@@ -21,7 +21,7 @@ and this project adheres to
 
 - bumped fdc-client to v1.4.2, whose bundled system configs carry the same
   epochs.
-- bumped tee-relay-client to v.0.0.3. It requires FDC2 verifiers that answer
+- bumped tee-relay-client to v0.0.3. It requires FDC2 verifiers that answer
   with the `{status, responseBody, message}` envelope of go-verifier-api
   v0.1.0, whose routes also changed — re-check the verifier `*_URL` values in
   `.env`.
