@@ -6,12 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# \[Unreleased\]
+# \[[v1.8.0](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.8.0)\] - 2026-09-17
 
 **Mandatory upgrade. Songbird providers must run this version before reward
 epoch 437, Flare providers before reward epoch 441.** From that epoch on the
-`Relay` switches to the redeployed contract. A provider still on an older
-version keeps signing for the retired one and drops out of every protocol.
+`Relay` switches to the redeployed contract.
 
 ### Added
 
