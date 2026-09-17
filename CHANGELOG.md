@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# \[Unreleased\]
+
+### Added
+
+- `LOG_LEVEL` in `.env` sets the logging level for every client, defaults to
+  `debug`.
+
+### Changed
+
+- the config templates no longer hardcode `INFO`. With `LOG_LEVEL` unset the
+  generated configs now say `debug`, so every client gets more verbose after
+  rerunning `./populate_config.sh` — set `LOG_LEVEL=info` to keep the old level.
+
 # \[[v1.8.0](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.8.0)\] - 2026-09-17
 
 **Mandatory upgrade. Songbird providers must run this version before reward

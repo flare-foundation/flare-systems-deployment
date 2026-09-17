@@ -2,7 +2,7 @@
 log_queries = false
 
 [logger]
-level = "INFO"
+level = "${LOG_LEVEL}"
 console = true
 
 [metrics]
