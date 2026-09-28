@@ -22,7 +22,7 @@
   {
     "name": "NodePossessionVerifier",
     "contractName": "NodePossessionVerifier.sol",
-    "address": "0x168F316F4f2FEd0AA99C3c73456ed11ba2FF8cB0"
+    "address": "0x54380a03d5fe92bd5D95d31411886Faa85844A1b"
   },
   {
     "name": "VoterRegistry",
@@ -57,7 +57,7 @@
   {
     "name": "WNatDelegationFee",
     "contractName": "WNatDelegationFee.sol",
-    "address": "0xb382DC86C06f91ef711703a582D08977b2601726"
+    "address": "0x5A1fDF4e39201Ef847DDcDca1065a9A2BB007600"
   },
   {
     "name": "FtsoInflationConfigurations",
@@ -72,7 +72,7 @@
   {
     "name": "FtsoFeedDecimals",
     "contractName": "FtsoFeedDecimals.sol",
-    "address": "0x3b3711F8c1D5b31f7dda24c23D5f9A00d75cDcae"
+    "address": "0xC4C1B29Db668D40D986B19D06956079D1571baC1"
   },
   {
     "name": "FtsoFeedPublisher",
@@ -222,7 +222,7 @@
   {
     "name": "FtsoV2",
     "contractName": "FtsoV2.sol",
-    "address": "0xB18d3A5e5A85C65cE47f977D7F486B79F99D3d32"
+    "address": "0x7BDE3Df0624114eDB3A67dFe6753e62f4e7c1d20"
   },
   {
     "name": "PriceSubmitter",
@@ -252,7 +252,7 @@
   {
     "name": "FdcVerification",
     "contractName": "FdcVerification.sol",
-    "address": "0x9394c7A36b3Da8de1b4F27cdD0a554dA4Fa7132d"
+    "address": "0x5C14FE9D73Ab763F4d4a76f334bf7029DDD20Ecc"
   },
   {
     "name": "VoterPreRegistry",
