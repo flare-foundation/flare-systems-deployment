@@ -13,3 +13,4 @@ include:
   - template: Jobs/Secret-Detection.latest.gitlab-ci.yml
   - component: gitlab.com/flarenetwork/ci-components-private/lgtm@2
   - component: gitlab.com/flarenetwork/ci-components-private/lint-shell@2
+  - component: gitlab.com/flarenetwork/ci-components-private/lint-github-actions@2
