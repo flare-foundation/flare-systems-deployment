@@ -20,6 +20,5 @@ version = "0.0.0"
 swagger_path = "/api-doc"
 
 [logger]
-file = ""
 level = "${LOG_LEVEL}"
 console = true
