@@ -19,4 +19,3 @@ drop_table_at_start = false
 
 [logger]
 level = "${LOG_LEVEL}"
-console = true
