@@ -6,18 +6,43 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# \[Unreleased\]
+# \[[v1.9.0](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.9.0)\] - 2026-10-23
 
 ### Added
 
-- `LOG_LEVEL` in `.env` sets the logging level for every client, defaults to
-  `debug`.
+- `LOG_LEVEL` in `.env` sets the log level for every client. It defaults to
+  `debug`. Set `LOG_LEVEL=info` to keep the previous level.
 
 ### Changed
 
-- the config templates no longer hardcode `INFO`. With `LOG_LEVEL` unset the
-  generated configs now say `debug`, so every client gets more verbose after
-  rerunning `./populate_config.sh` — set `LOG_LEVEL=info` to keep the old level.
+- bumped c-chain-indexer to v2.1.0, flare-system-client to v1.2.1, fdc-client
+  to v1.4.3, tee-relay-client to v0.0.5, fast-updates to v1.2.0 and
+  ftso-scaling to v1.2.1.
+- every client logs to standard output only. Read the logs with
+  `docker compose logs`.
+- c-chain-indexer and fast-updates write structured log lines, the first step
+  of a structured logging rollout across our services. Log parsers that match
+  the old fast-updates message text need updating.
+
+### Security
+
+- the client images reject TLS certificates issued under the eight compromised
+  eMudhra (emSign) intermediate CA keys.
+
+### Upgrading
+
+```bash
+git fetch --tags
+git checkout v1.9.0
+./populate_config.sh
+docker compose pull
+docker compose down
+docker compose up -d
+```
+
+- `./populate_config.sh` is **recommended**: it drops the config keys the new
+  versions no longer read. Old configs still start, but each ignored key is
+  logged as a warning.
 
 # \[[v1.8.0](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.8.0)\] - 2026-09-17
 

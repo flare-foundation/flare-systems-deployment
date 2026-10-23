@@ -25,7 +25,7 @@ services:
 
   c-chain-indexer:
     <<: *restart-policy
-    image: ghcr.io/flare-foundation/flare-system-c-chain-indexer:v2.0.2@sha256:4f5bb1e00b3e0b5f1dfb45670247505bdc7a0fee27df72f3e6bc57d5ac58a29f
+    image: ghcr.io/flare-foundation/flare-system-c-chain-indexer:v2.1.0@sha256:c5f2e15b03c74bfe4d6c6c5c89a082655f6ae8b8e4fa7381029c2d48ad8bcdee
     profiles: [fsp, ftso, fdc, tee]
     environment:
       # db
@@ -55,7 +55,7 @@ services:
 
   system-client:
     <<: [*restart-policy, *stop-grace-period-policy]
-    image: ghcr.io/flare-foundation/flare-system-client:v1.2.0@sha256:b007bfc77defef490ad4617fb4eced960dd4d5724c54158b95a807febb4d5c1c
+    image: ghcr.io/flare-foundation/flare-system-client:v1.2.1@sha256:e32425a22e39ea88a15610db418cebb79871cf9ffbb740d2a3a22a3a66311295
     profiles: [fsp, system-client]
     environment:
       # db
@@ -83,7 +83,7 @@ services:
 
   ftso-client:
     <<: [*restart-policy, *stop-grace-period-policy]
-    image: ghcr.io/flare-foundation/ftso-scaling:v1.2.0@sha256:b9cd05a726dcec40e1e36dd808546b6d39f7743c8f7b69822e476e09c834c081
+    image: ghcr.io/flare-foundation/ftso-scaling:v1.2.1@sha256:2972ac7050a54206b3bdf743fa37732b110dfb488fb76fc4aece26fea3c46b89
     profiles: [fsp, ftso]
     environment:
       DB_HOST: "c-chain-indexer-db"
@@ -99,7 +99,7 @@ services:
 
   fdc-client:
     <<: [*restart-policy, *stop-grace-period-policy]
-    image: ghcr.io/flare-foundation/fdc-client:v1.4.2@sha256:b508555b1ccf6babe9d0def84e469829df97a2b353ffada3b0cc0292f67cb7d9
+    image: ghcr.io/flare-foundation/fdc-client:v1.4.3@sha256:2798fea7b307045ae444bbc7bd07af6179be53c6b92c00442813538bd2981334
     profiles: [fsp, fdc]
     environment:
       DB_HOST: "c-chain-indexer-db"
@@ -115,7 +115,7 @@ services:
 
   tee-relay-client:
     <<: *restart-policy
-    image: ghcr.io/flare-foundation/tee-relay-client:v0.0.3@sha256:5688e249ca963cf7677381c7ab2e22aadafdbf80a0c61187b3b6a9057dc7497a
+    image: ghcr.io/flare-foundation/tee-relay-client:v0.0.5@sha256:c1983209df26b3ad9c8584dbea64d78e777470ba8a47dab2253b24feb3edf3a1
     profiles: [tee]
     environment:
       PRIVATE_KEY: ${SIGNING_PK}
@@ -127,7 +127,7 @@ services:
 
   fast-updates:
     <<: *restart-policy
-    image: ghcr.io/flare-foundation/fast-updates/go-client:v1.1.0@sha256:1782ada7361afd5dac68ea21bfffca11afd38e1f121d9bb64c5d7415993841ec
+    image: ghcr.io/flare-foundation/fast-updates/go-client:v1.2.0@sha256:d956111c796e176cd69c991c85baf85a43a54c21a1d468d68fac18f9e128ccdf
     profiles: [fast-updates]
     environment:
       SIGNING_PRIVATE_KEY: ${SIGNING_PK}
