@@ -89,7 +89,6 @@ write_fdc_attestation_types() {
         write_attestation_queue "BTC"
         write_attestation_queue "DOGE"
         write_attestation_queue "XRP"
-        write_attestation_queue "Ignite"
         # evm transaction
         write_attestation_type "EVMTransaction"
         write_attestation_source "EVMTransaction" "SGB" 18446744073709551615
@@ -120,9 +119,6 @@ write_fdc_attestation_types() {
         write_attestation_source "AddressValidity" "BTC" 18446744073709551615
         write_attestation_source "AddressValidity" "DOGE" 18446744073709551615
         write_attestation_source "AddressValidity" "XRP" 18446744073709551615
-        # web2json
-        write_attestation_type "Web2Json"
-        write_attestation_source "Web2Json" "Ignite" 18446744073709551615
         # xrp payment
         write_attestation_type "XRPPayment"
         write_attestation_source "XRPPayment" "XRP" 1209600
