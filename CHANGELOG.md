@@ -6,6 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# \[[v1.9.1](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.9.1)\] - 2026-10-28
+
+### Removed
+
+- the Web2Json attestation type from the fdc-client config, matching the web2
+  verifier removal in fdc-suite-deployment v1.4.5.
+
+### Upgrading
+
+```bash
+git fetch --tags
+git checkout v1.9.1
+./populate_config.sh
+docker compose restart fdc-client
+```
+
+- only the fdc-client config changes, so restarting the fdc-client is enough.
+  After that, remove `IGNITE_WEB2JSON_URL` and `IGNITE_WEB2JSON_API_KEY` from
+  your `.env`.
+- if you are upgrading from v1.8.0 or earlier, follow the v1.9.0 steps instead
+  and check out v1.9.1.
+
 # \[[v1.9.0](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.9.0)\] - 2026-10-23
 
 ### Added
