@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# \[Unreleased\]
+# \[[v1.10.0](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.10.0)\] - 2026-11-16
 
 ### Changed
 
@@ -22,6 +22,15 @@ and this project adheres to
     gas.
 
 ### Upgrading
+
+```bash
+git fetch --tags
+git checkout v1.10.0
+./populate_config.sh
+docker compose pull
+docker compose down
+docker compose up -d
+```
 
 - `./populate_config.sh` is required.
 
