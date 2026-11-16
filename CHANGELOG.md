@@ -6,6 +6,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# \[[v1.10.0](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.10.0)\] - 2026-11-16
+
+### Changed
+
+- Relay cutover cleanup: all networks are past the cutover, so the
+  `[relay_cutover]` config is no longer needed and is removed. Bumped
+  flare-system-client to v1.2.2, which uses the new Relay directly.
+- gas limit adjustments for go-flare v1.15.1, which charges at least half of a
+  transaction's gas limit and counts the full limit towards the base fee:
+  - finalizations for rounds that are already relayed use 500000 instead of
+    2500000 (flare-system-client v1.2.2). They are still sent, so rewards are
+    unchanged.
+  - fast updates use 500000 instead of 3000000. A submission uses about 200k
+    gas.
+
+### Upgrading
+
+```bash
+git fetch --tags
+git checkout v1.10.0
+./populate_config.sh
+docker compose pull
+docker compose down
+docker compose up -d
+```
+
+- `./populate_config.sh` is required.
+
 # \[[v1.9.1](https://github.com/flare-foundation/flare-systems-deployment/tree/v1.9.1)\] - 2026-10-28
 
 ### Removed

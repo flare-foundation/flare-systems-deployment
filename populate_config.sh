@@ -12,8 +12,6 @@ CHAIN_CONFIG="${CONFIG_DIR}/config.json"
 DEPLOYED_CONTRACTS="${CONFIG_DIR}/contracts.json"
 INITIAL_REWARD_EPOCH="${CONFIG_DIR}/initial_reward_epoch.txt"
 CHAIN_ID_FILE="${CONFIG_DIR}/chain_id.txt"
-# only present on networks whose switch to the source-chain-id-bound Relay is scheduled
-RELAY_CUTOVER="${CONFIG_DIR}/relay_cutover.json"
 
 # logging level for every client, defaults to debug when not set in .env
 # lower cased: the ftso client compares LOG_LEVEL to "debug" exactly
@@ -257,20 +255,6 @@ main() {
     # chain id
     CHAIN_ID=$(cat "$CHAIN_ID_FILE")
     export CHAIN_ID
-
-    # relay cutover: rendered into the system-client config only where it is scheduled,
-    # so that a network without a date gets no [relay_cutover] section at all
-    if [[ -f "$RELAY_CUTOVER" ]]; then
-        # a literal string, not $(...), so the surrounding blank lines survive
-        RELAY_CUTOVER_SECTION="
-[relay_cutover]
-address = \"$(jq -r .address "$RELAY_CUTOVER")\"
-starting_reward_epoch = $(jq -r .startingRewardEpoch "$RELAY_CUTOVER")
-"
-    else
-        RELAY_CUTOVER_SECTION=""
-    fi
-    export RELAY_CUTOVER_SECTION
 
     # write configs
 
