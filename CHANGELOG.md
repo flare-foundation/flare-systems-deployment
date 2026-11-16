@@ -18,6 +18,8 @@ and this project adheres to
   - finalizations for rounds that are already relayed use 500000 instead of
     2500000 (flare-system-client v1.2.2). They are still sent, so rewards are
     unchanged.
+  - fast updates use 500000 instead of 3000000. A submission uses about 200k
+    gas.
 
 ### Upgrading
 
